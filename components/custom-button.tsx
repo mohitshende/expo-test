@@ -41,13 +41,15 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   button: {
+    flex:1,
     borderRadius: 40,
     borderWidth: 0.6,
-    paddingHorizontal: 38.75,
-    paddingVertical: 11,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
+    textAlign:'center'
   },
   buttonText: {
     fontWeight: 400,
