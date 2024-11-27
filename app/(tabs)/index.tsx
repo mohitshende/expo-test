@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+
+  StyleSheet,
+  ScrollView,
+
+} from "react-native";
 import BotMessageCard from "@/components/bot-message-card";
 import UserMessageCard from "@/components/user-message.card";
 import { IChat } from "@/types/IChat";
+import CustomInput from "@/components/custom-input";
+import { icons } from "@/constants";
 
 const botResponses = {
   anxious: {
@@ -63,6 +71,44 @@ const botResponses = {
 
 const ChatBot = () => {
   const [chat, setChat] = useState<IChat[]>([]);
+  const [inputText, setInputText] = useState<string>("");
+
+  const handleOptionClick = ({ id, text }: { id: string; text: string }) => {
+    const userMessage = {
+      id: new Date().toISOString(),
+      type: "user",
+      message: text,
+      options: [],
+      time: new Date().toLocaleTimeString(),
+    };
+
+    const botResponse = {
+      id: new Date().toISOString(),
+      type: "bot",
+      message:
+        botResponses[id]?.message || "Sorry, I don't have an answer for that.",
+      suggestions: botResponses[id]?.suggestions,
+      time: new Date().toLocaleTimeString(),
+    };
+
+    setChat((prevChat) => [...prevChat, userMessage, botResponse]);
+  };
+
+  const handleChangeText = (text: string) => {
+    setInputText(text);
+  };
+
+  const handleSend = () => {
+    const userMessage = {
+      id: new Date().toISOString(),
+      type: "user",
+      message: inputText,
+      options: [],
+      time: new Date().toLocaleTimeString(),
+    };
+    setChat((prevChat) => [...prevChat, userMessage]);
+    setInputText(""); // Clear input after sending
+  };
 
   useEffect(() => {
     // Initial Bot Message
@@ -76,48 +122,42 @@ const ChatBot = () => {
         { id: "sleep_issue", text: "Couldn't sleep last night" },
         { id: "migraine", text: "Migraine" },
       ],
+      time: new Date().toLocaleTimeString(),
     };
     setChat([initialBotMessage]);
   }, []);
 
-  const handleOptionClick = ({ id, text }: { id: string; text: string }) => {
-    const userMessage = {
-      id: new Date().toISOString(),
-      type: "user",
-      message: text,
-      options: [],
-    };
-
-    const botResponse = {
-      id: new Date().toISOString(),
-      type: "bot",
-      message:
-        botResponses[id]?.message || "Sorry, I don't have an answer for that.",
-      suggestions: botResponses[id]?.suggestions,
-    };
-
-    setChat((prevChat) => [...prevChat, userMessage, botResponse]);
-  };
-
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={chat}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
-          if (item.type === "bot")
-            return (
-              <BotMessageCard
-                item={item}
-                handleOptionClick={handleOptionClick}
-              />
-            );
-          else {
-            return <UserMessageCard item={item} />;
-          }
-        }}
-      />
-    </View>
+    <>
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.chatList}
+          keyboardShouldPersistTaps="handled"
+        >
+          {chat.map((item) => (
+            <View key={item.id}>
+              {item.type === "bot" ? (
+                <BotMessageCard
+                  item={item}
+                  handleOptionClick={handleOptionClick}
+                />
+              ) : (
+                <UserMessageCard item={item} />
+              )}
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+      <View style={styles.chatInputContainer}>
+        <CustomInput
+          value={inputText}
+          handleChangeText={handleChangeText}
+          placeholder="tell us your concern"
+          otherStyles={{ borderWidth: 0.4 }}
+          fieldIcon={icons.plane}
+        />
+      </View>
+    </>
   );
 };
 
@@ -129,5 +169,20 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 16,
     backgroundColor: "#F5F5F5",
+  },
+  chatList: {
+    paddingBottom: 50,
+  },
+  chatInputContainer: {
+    borderWidth: 0.4,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    borderColor: "#ABB292",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: "100%",
+    padding: 16,
+    backgroundColor: "#fff",
   },
 });

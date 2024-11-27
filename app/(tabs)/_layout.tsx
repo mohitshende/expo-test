@@ -17,7 +17,7 @@ export default function TabLayout() {
           styles.header,
           { backgroundColor: Colors.tabHeaderBackground, height: 90 },
         ],
-        headerTintColor: Colors.text,
+        headerTintColor: Colors.background,
         headerShadowVisible: true,
         headerTitleStyle: {
           fontSize: 20,
@@ -25,6 +25,7 @@ export default function TabLayout() {
           fontWeight: 500,
           letterSpacing: -0.48,
         },
+        
       }}
     >
       <Tabs.Screen
@@ -44,6 +45,7 @@ export default function TabLayout() {
               resizeMode="contain"
             />
           ),
+          
         }}
       />
     </Tabs>

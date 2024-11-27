@@ -14,5 +14,6 @@ export interface IChat {
   type: "bot" | "user";
   message: string;
   options: IOption[];
-  suggestions?:ISuggestion[]
+  suggestions?:ISuggestion[],
+  time:string
 }
