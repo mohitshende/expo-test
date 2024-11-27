@@ -25,7 +25,13 @@ export default function TabLayout() {
           fontWeight: 500,
           letterSpacing: -0.48,
         },
-        
+        headerLeft: () => (
+          <Image
+            source={icons.splash}
+            style={styles.headerIcon}
+            resizeMode="contain"
+          />
+        ),
       }}
     >
       <Tabs.Screen
@@ -38,14 +44,6 @@ export default function TabLayout() {
               style={[styles.icon, { tintColor: color }]}
             />
           ),
-          headerLeft: () => (
-            <Image
-              source={icons.splash}
-              style={styles.headerIcon}
-              resizeMode="contain"
-            />
-          ),
-          
         }}
       />
     </Tabs>
@@ -71,8 +69,8 @@ const styles = StyleSheet.create({
     height: 32,
   },
   headerIcon: {
-    width: 54,
-    height: 54,
+    width: 32,
+    height: 32,
     marginLeft: 16,
   },
 });
