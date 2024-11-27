@@ -6,7 +6,7 @@ const UserMessageCard = ({ item }: {item:IChat}) => {
   return (
     <View style={styles.userMessage}>
       <Text style={styles.userText}>{item.message}</Text>
-      <Text style={styles.messageTime}>10.30</Text>
+      <Text style={styles.messageTime}>{item.time}</Text>
     </View>
   );
 };

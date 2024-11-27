@@ -33,7 +33,7 @@ const botResponses = {
   },
   sleep_issue: {
     message:
-      "I understand you're having trouble sleeping. Here are some quick solutions:",
+      "I understand you're having trouble sleeping. Let me suggest a quick solution that might help..",
     suggestions: [
       {
         id: "3",
@@ -91,9 +91,7 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     };
 
-    setTimeout(() => {
-      setChat((prevChat) => [...prevChat, userMessage, botResponse]);
-    }, 1000);
+    setChat((prevChat) => [...prevChat, userMessage, botResponse]);
   };
 
   const handleChangeText = (text: string) => {

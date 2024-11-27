@@ -13,7 +13,7 @@ const BotMessageCard = ({ item, handleOptionClick }: IBotMessageProps) => {
     <View style={styles.botMessage}>
       <View style={styles.botHeader}>
         <Text style={styles.botText}>{item.message}</Text>
-        <Text style={styles.messageTime}>10:30 am</Text>
+        <Text style={styles.messageTime}>{item.time}</Text>
       </View>
 
       {/* Bot Option's */}
