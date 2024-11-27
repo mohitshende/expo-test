@@ -11,7 +11,7 @@ export interface IOption {
 }
 export interface IChat {
   id: string;
-  type: "bot" | "user";
+  type: string;
   message: string;
   options?: IOption[];
   suggestions?:ISuggestion[],

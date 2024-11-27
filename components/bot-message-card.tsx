@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import CustomButton from "./custom-button";
 import { IChat, IOption } from "@/types/IChat";
 
@@ -20,7 +20,7 @@ const BotMessageCard = ({ item, handleOptionClick }: IBotMessageProps) => {
       {item.options && (
         <View style={styles.optionsContainer}>
           {item.options.map((option) => (
-            <TouchableOpacity
+            <Pressable
               key={option.id}
               style={styles.optionButton}
               onPress={() => handleOptionClick(option)}
@@ -28,10 +28,12 @@ const BotMessageCard = ({ item, handleOptionClick }: IBotMessageProps) => {
               <Text style={styles.optionText}>{option.text}</Text>
 
               <Text style={styles.optionButtonTime}>2d</Text>
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       )}
+
+      {/* Bot Suggestion's */}
       {item.suggestions && (
         <View>
           {item.suggestions.map((suggestion) => (
@@ -104,8 +106,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 0.4,
-    borderBottomWidth: 0.4,
-    borderBottomColor: Colors.border,
+    borderTopColor: Colors.border,
     flexDirection: "row",
     justifyContent: "space-between",
   },
@@ -129,8 +130,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 0.4,
-    borderBottomWidth: 0.4,
-    borderBottomColor: Colors.border,
+    borderTopColor: Colors.border,
   },
   suggestionTitle: {
     fontWeight: 400,
@@ -150,9 +150,9 @@ const styles = StyleSheet.create({
   },
 
   buttonContainer: {
-    flex:1,
+    flex: 1,
     flexDirection: "row",
-    justifyContent:'center',
+    justifyContent: "center",
     gap: 12,
   },
 });

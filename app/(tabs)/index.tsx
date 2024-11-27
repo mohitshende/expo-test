@@ -11,8 +11,22 @@ import UserMessageCard from "@/components/user-message.card";
 import { IChat } from "@/types/IChat";
 import CustomInput from "@/components/custom-input";
 import { icons } from "@/constants";
+import { formatTime } from "@/utils/formateTime";
 
-const botResponses = {
+type BotResponseKey = "anxious" | "sleep_issue" | "migraine";
+
+const botResponses: Record<
+  BotResponseKey,
+  {
+    message: string;
+    suggestions: {
+      id: string;
+      title: string;
+      duration: string;
+      successRate: string;
+    }[];
+  }
+> = {
   anxious: {
     message:
       "I understand you're feeling anxious. Let me suggest a few relaxation techniques.",
@@ -73,22 +87,26 @@ const ChatBot = () => {
   const [chat, setChat] = useState<IChat[]>([]);
   const [inputText, setInputText] = useState<string>("");
 
+  // Handle Bot Option Click
   const handleOptionClick = ({ id, text }: { id: string; text: string }) => {
+    const botResponseKey = id as BotResponseKey;
+
     const userMessage = {
-      id: new Date().toISOString(),
+      id: `user-${Date.now()}`,
       type: "user",
       message: text,
       options: [],
-      time: new Date().toLocaleTimeString(),
+      time: formatTime(new Date()),
     };
 
     const botResponse = {
-      id: new Date().toISOString(),
+      id: `bot-${Date.now()}`,
       type: "bot",
       message:
-        botResponses[id]?.message || "Sorry, I don't have an answer for that.",
-      suggestions: botResponses[id]?.suggestions,
-      time: new Date().toLocaleTimeString(),
+        botResponses[botResponseKey]?.message ||
+        "Sorry, I don't have an answer for that.",
+      suggestions: botResponses[botResponseKey]?.suggestions,
+      time: formatTime(new Date()),
     };
 
     setChat((prevChat) => [...prevChat, userMessage, botResponse]);
@@ -98,23 +116,25 @@ const ChatBot = () => {
     setInputText(text);
   };
 
+  // Handle Input Send button click
   const handleSend = () => {
     const trimmedMessage = inputText.trim();
     if (!trimmedMessage) return; // check for empty msg
     const userMessage = {
-      id: new Date().toISOString(),
+      id: `user-${Date.now()}`,
       type: "user",
       message: trimmedMessage,
-      time: new Date().toLocaleTimeString(),
+      time: formatTime(new Date()),
     };
     setChat((prevChat) => [...prevChat, userMessage]);
     setInputText("");
 
     setTimeout(() => {
       const botResponse = {
-        id: Date.now().toString(),
+        id: `bot-${Date.now()}`,
         type: "bot",
         message: `You said: "${trimmedMessage}". How can I help further?`,
+        time: formatTime(new Date()),
       };
 
       setChat((prevChat) => [...prevChat, botResponse]);
@@ -133,7 +153,7 @@ const ChatBot = () => {
         { id: "sleep_issue", text: "Couldn't sleep last night" },
         { id: "migraine", text: "Migraine" },
       ],
-      time: new Date().toLocaleTimeString(),
+      time: formatTime(new Date()),
     };
     setChat([initialBotMessage]);
   }, []);
