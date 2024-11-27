@@ -1,7 +1,14 @@
 import { Colors } from "@/constants/Colors";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import CustomButton from "./custom-button";
+import { IChat, IOption } from "@/types/IChat";
 
-const BotMessageCard = ({ item, handleOptionClick }: any) => {
+interface IBotMessageProps {
+  item: IChat;
+  handleOptionClick: (option: IOption) => void;
+}
+
+const BotMessageCard = ({ item, handleOptionClick }: IBotMessageProps) => {
   return (
     <View style={styles.botMessage}>
       <View style={styles.botHeader}>
@@ -25,7 +32,7 @@ const BotMessageCard = ({ item, handleOptionClick }: any) => {
           ))}
         </View>
       )}
-      {/* {item.suggestions && (
+      {item.suggestions && (
         <View>
           {item.suggestions.map((suggestion) => (
             <View key={suggestion.id} style={styles.suggestionCard}>
@@ -35,21 +42,18 @@ const BotMessageCard = ({ item, handleOptionClick }: any) => {
               </Text>
 
               <View style={styles.buttonContainer}>
-                <Button
-                  onPress={() => {}}
+                <CustomButton
                   title="details"
-                  style={styles.sugButton}
+                  handlePress={() => {}}
+                  containerStyles={{ backgroundColor: Colors.background2 }}
+                  textStyles={{ color: "#000" }}
                 />
-                <Button
-                  onPress={() => {}}
-                  title="start"
-                  style={styles.sugButton}
-                />
+                <CustomButton title="start" handlePress={() => {}} />
               </View>
             </View>
           ))}
         </View>
-      )} */}
+      )}
     </View>
   );
 };
@@ -120,32 +124,33 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
 
-  // Bot Message Cont end here
-
   suggestionCard: {
-    backgroundColor: "#FFF",
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-    borderColor: "#B0BEC5",
-    borderWidth: 1,
+    backgroundColor: Colors.background2,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderTopWidth: 0.4,
+    borderBottomWidth: 0.4,
+    borderBottomColor: Colors.border,
   },
   suggestionTitle: {
+    fontWeight: 400,
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#37474F",
+    lineHeight: 18,
+    letterSpacing: 0.4,
+    color: "#454545",
   },
   suggestionDetails: {
+    fontWeight: 400,
     fontSize: 14,
-    color: "#607D8B",
+    lineHeight: 18,
+    letterSpacing: 0.4,
+    color: "rgba(0, 0, 0, 0.7)",
+    marginTop: 4,
+    marginBottom: 12,
   },
 
   buttonContainer: {
     flexDirection: "row",
     gap: 12,
   },
-  sugButton: {
-    borderRadius: 40,
-  },
-  //
 });

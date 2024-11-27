@@ -1,19 +1,8 @@
-import { Colors } from "@/constants/Colors";
 import React, { useState, useEffect } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import BotMessageCard from "@/components/bot-message-card";
 import UserMessageCard from "@/components/user-message.card";
-
-interface IOption {
-  id: string;
-  text: string;
-}
-interface IChat {
-  id: string;
-  type: "bot" | "user";
-  message: string;
-  options: IOption[];
-}
+import { IChat } from "@/types/IChat";
 
 const botResponses = {
   anxious: {

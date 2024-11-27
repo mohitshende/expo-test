@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "@/constants/Colors";
+import { IChat } from "@/types/IChat";
 
-const UserMessageCard = ({ item }: any) => {
+const UserMessageCard = ({ item }: {item:IChat}) => {
   return (
     <View style={styles.userMessage}>
       <Text style={styles.userText}>{item.message}</Text>
