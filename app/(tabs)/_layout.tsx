@@ -1,12 +1,10 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { Tabs } from "expo-router";
+import React from "react";
+import { StyleSheet, Image, Platform } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { Colors } from "@/constants/Colors";
+import { icons } from "@/constants";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,32 +12,65 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarActiveTintColor: "light",
+        headerStyle: [
+          styles.header,
+          { backgroundColor: Colors.tabHeaderBackground, height: 90 },
+        ],
+        headerTintColor: Colors.text,
+        headerShadowVisible: true,
+        headerTitleStyle: {
+          fontSize: 20,
+          fontFamily: "Recoleta",
+          fontWeight: 500,
+          letterSpacing: -0.48,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Quick consultation",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+          headerLeft: () => (
+            <Image
+              source={icons.splash}
+              style={styles.headerIcon}
+              resizeMode="contain"
+            />
+          ),
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
+  },
+  icon: {
+    width: 32,
+    height: 32,
+  },
+  headerIcon: {
+    width: 54,
+    height: 54,
+    marginLeft: 16,
+  },
+});
