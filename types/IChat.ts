@@ -13,7 +13,7 @@ export interface IChat {
   id: string;
   type: "bot" | "user";
   message: string;
-  options: IOption[];
+  options?: IOption[];
   suggestions?:ISuggestion[],
   time:string
 }

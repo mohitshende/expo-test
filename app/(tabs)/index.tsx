@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-
   StyleSheet,
   ScrollView,
-
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import BotMessageCard from "@/components/bot-message-card";
 import UserMessageCard from "@/components/user-message.card";
@@ -91,7 +91,9 @@ const ChatBot = () => {
       time: new Date().toLocaleTimeString(),
     };
 
-    setChat((prevChat) => [...prevChat, userMessage, botResponse]);
+    setTimeout(() => {
+      setChat((prevChat) => [...prevChat, userMessage, botResponse]);
+    }, 1000);
   };
 
   const handleChangeText = (text: string) => {
@@ -99,15 +101,26 @@ const ChatBot = () => {
   };
 
   const handleSend = () => {
+    const trimmedMessage = inputText.trim();
+    if (!trimmedMessage) return; // check for empty msg
     const userMessage = {
       id: new Date().toISOString(),
       type: "user",
-      message: inputText,
-      options: [],
+      message: trimmedMessage,
       time: new Date().toLocaleTimeString(),
     };
     setChat((prevChat) => [...prevChat, userMessage]);
-    setInputText(""); // Clear input after sending
+    setInputText("");
+
+    setTimeout(() => {
+      const botResponse = {
+        id: Date.now().toString(),
+        type: "bot",
+        message: `You said: "${trimmedMessage}". How can I help further?`,
+      };
+
+      setChat((prevChat) => [...prevChat, botResponse]);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -128,7 +141,10 @@ const ChatBot = () => {
   }, []);
 
   return (
-    <>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.chatList}
@@ -148,6 +164,8 @@ const ChatBot = () => {
           ))}
         </ScrollView>
       </View>
+
+      {/* Input Container */}
       <View style={styles.chatInputContainer}>
         <CustomInput
           value={inputText}
@@ -155,9 +173,10 @@ const ChatBot = () => {
           placeholder="tell us your concern"
           otherStyles={{ borderWidth: 0.4 }}
           fieldIcon={icons.plane}
+          handleSubmit={handleSend}
         />
       </View>
-    </>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -166,12 +185,12 @@ export default ChatBot;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  chatList: {
+    paddingBottom: 80,
     paddingVertical: 24,
     paddingHorizontal: 16,
     backgroundColor: "#F5F5F5",
-  },
-  chatList: {
-    paddingBottom: 50,
   },
   chatInputContainer: {
     borderWidth: 0.4,

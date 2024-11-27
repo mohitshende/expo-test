@@ -1,4 +1,4 @@
-import { View, Image, TextInput, StyleSheet } from "react-native";
+import { View, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
 interface IFormField {
   inputMode?: "text";
@@ -35,11 +35,13 @@ const CustomInput = ({
         onChangeText={handleChangeText}
         editable={editable}
         numberOfLines={1}
+        accessibilityLabel={placeholder}
+        onSubmitEditing={handleSubmit}
         {...props}
       />
-       {fieldIcon && (
-        <Image source={fieldIcon} style={styles.inputIcon} resizeMode="contain" />
-      )}
+      <TouchableOpacity onPress={handleSubmit} style={styles.iconWrapper}>
+          <Image source={fieldIcon} style={styles.inputIcon} resizeMode="contain" />
+        </TouchableOpacity>
     </View>
   );
 };
@@ -65,8 +67,13 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     letterSpacing: 0.4,
   },
+
+  iconWrapper: {
+    marginLeft: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   inputIcon: {
-    marginLeft: 8,
     width: 20,
     height: 20,
   },
