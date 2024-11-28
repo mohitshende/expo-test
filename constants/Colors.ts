@@ -1,14 +1,22 @@
 const tintColorLight = "#0a7ea4";
 
 export const Colors = {
-  // text: "#",
+  text: {
+    primary: "",
+    secondary: "rgba(0, 0, 0, 0.75)",
+  },
   textPrimary: "#080808",
   background: "#F5F5F5",
-  background2:'#F7F7F7',
+  background2: "#F7F7F7",
   tint: tintColorLight,
   icon: "#687076",
   tabIconDefault: "#687076",
   tabIconSelected: tintColorLight,
   tabHeaderBackground: "#3E45BB",
-  border: "rgba(87, 95, 246, 0.8)",
+  border: {
+    primary: "rgba(87, 95, 246, 0.8)",
+    secondary: "rgba(46, 46, 46, 0.2)",
+  },
+  white: "#fff",
+  black: "#000",
 };

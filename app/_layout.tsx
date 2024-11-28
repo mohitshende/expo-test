@@ -10,7 +10,8 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    Recoleta:require("../assets/fonts/Recoleta-RegularDEMO.otf")
+    Recoleta: require("../assets/fonts/Recoleta-RegularDEMO.otf"),
+    "Gilroy-SemiBold": require("../assets/fonts/gilroy/Gilroy-SemiBold.ttf"),
   });
 
   useEffect(() => {
