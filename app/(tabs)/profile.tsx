@@ -13,8 +13,19 @@ import {
   Platform,
 } from "react-native";
 
+interface Option {
+  id: number;
+  title: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+interface Section {
+  title: string;
+  data: Option[];
+}
+
 // Profile Page Option's
-const sections = [
+const sections: Section[] = [
   {
     title: "Profile Settings",
     data: [

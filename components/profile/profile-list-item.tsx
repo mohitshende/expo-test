@@ -3,9 +3,15 @@ import React from "react";
 import { icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
 
-const ProfileListItem = ({ option }) => {
+interface Option {
+  id: number;
+  title: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
+const ProfileListItem = ({ option }: { option: Option }) => {
   return (
-    <TouchableOpacity  style={styles.listItem}>
+    <TouchableOpacity style={styles.listItem} activeOpacity={0.75}>
       <option.icon style={styles.listIcon} />
       <Text style={styles.listText}>{option.title}</Text>
 
