@@ -4,6 +4,7 @@ export const Colors = {
   text: {
     primary: "",
     secondary: "rgba(0, 0, 0, 0.75)",
+    third: "rgba(62, 62, 62, 1)",
   },
   textPrimary: "#080808",
   background: "#F5F5F5",

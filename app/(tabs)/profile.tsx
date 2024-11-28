@@ -1,8 +1,12 @@
+import { BottomSheet } from "@/components/bottom-sheet";
+import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
+import BottomSheetFooter from "@/components/profile/bottom-sheet/bottom-sheet-footer";
+import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
 import ProfileHeader from "@/components/profile/profile-header";
 import ProfileListItem from "@/components/profile/profile-list-item";
 import { icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,6 +15,8 @@ import {
   StyleSheet,
   StatusBar,
   Platform,
+  Button,
+  Pressable,
 } from "react-native";
 
 interface Option {
@@ -48,12 +54,15 @@ const sections: Section[] = [
 ];
 
 const Profile = () => {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
+  const toggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
   return (
     <View style={styles.container}>
-      <StatusBar
-        translucent
-        barStyle="light-content" 
-      />
+      <StatusBar translucent barStyle="light-content" />
       {/* Header Section */}
       <ProfileHeader />
 
@@ -69,10 +78,16 @@ const Profile = () => {
       </ScrollView>
 
       {/* Floating Action Button */}
-      <TouchableOpacity style={styles.fab}>
+      <TouchableOpacity style={styles.fab} onPress={toggleModal}>
         <icons.Plus style={styles.fabIcon} />
         <Text style={styles.fabText}>health data</Text>
       </TouchableOpacity>
+
+      <BottomSheet isOpen={isModalOpen} toggleSheet={toggleModal}>
+        <BottomSheetHeader TitleIcon={icons.Watch} title="connected devices" />
+        <BottomSheetBody />
+        <BottomSheetFooter />
+      </BottomSheet>
     </View>
   );
 };
@@ -82,7 +97,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,    
+    backgroundColor: Colors.background,
   },
 
   // List start here
@@ -96,13 +111,6 @@ const styles = StyleSheet.create({
     borderWidth: 0.4,
     borderColor: Colors.border.secondary,
     paddingHorizontal: 15.3,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: Colors.textPrimary,
-    marginBottom: 8,
-    paddingHorizontal: 20,
   },
 
   // Floating Button
@@ -130,5 +138,11 @@ const styles = StyleSheet.create({
     color: Colors.background2,
     fontSize: 14,
     fontWeight: "bold",
+  },
+
+  // Bottom Sheet
+  bottomSheetHeader: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

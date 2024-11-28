@@ -11,6 +11,9 @@ import Star from "@/assets/icons/star.svg";
 import Logout from "@/assets/icons/logout.svg";
 import Sms from "@/assets/icons/sms.svg";
 import Arrow from "@/assets/icons/right-arrow.svg";
+import Battery from "@/assets/icons/battery.svg";
+import Bluetooth from "@/assets/icons/Bluetooth.svg";
+import CloseCircle from "@/assets/icons/close-circle.svg";
 
 export const icons = {
   plane,
@@ -25,5 +28,8 @@ export const icons = {
   Star,
   Logout,
   Sms,
-  Arrow
+  Arrow,
+  Battery,
+  Bluetooth,
+  CloseCircle,
 };
