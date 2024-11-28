@@ -35,9 +35,36 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="quick-consultation"
         options={{
           title: "Quick consultation",
+          tabBarLabel: "Quick consultation",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown:false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color }) => (
             <Image
               source={icons.home}
