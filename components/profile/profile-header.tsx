@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Platform, StatusBar } from "react-native";
 import React from "react";
 import { images } from "@/constants";
 import { Colors } from "@/constants/Colors";
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 24,
     elevation: 4,
+    paddingTop: Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 30 : 74,
   },
   backButton: {
     position: "absolute",

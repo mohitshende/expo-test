@@ -5,7 +5,7 @@ import { Colors } from "@/constants/Colors";
 
 const ProfileListItem = ({ option }) => {
   return (
-    <TouchableOpacity key={option.id} style={styles.listItem}>
+    <TouchableOpacity  style={styles.listItem}>
       <option.icon style={styles.listIcon} />
       <Text style={styles.listText}>{option.title}</Text>
 

@@ -9,8 +9,9 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
+  Platform,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 // Profile Page Option's
 const sections = [
@@ -38,6 +39,10 @@ const sections = [
 const Profile = () => {
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        barStyle="light-content" 
+      />
       {/* Header Section */}
       <ProfileHeader />
 
@@ -46,7 +51,7 @@ const Profile = () => {
         {sections.map((section) => (
           <View key={section.title} style={styles.section}>
             {section.data.map((option) => (
-              <ProfileListItem option={option} />
+              <ProfileListItem key={option.id} option={option} />
             ))}
           </View>
         ))}
@@ -66,7 +71,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background, 
+    backgroundColor: Colors.background,    
   },
 
   // List start here
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: Colors.textPrimary, 
+    color: Colors.textPrimary,
     marginBottom: 8,
     paddingHorizontal: 20,
   },
