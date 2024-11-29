@@ -35,13 +35,16 @@ const PersonalInformation = () => {
 
   return (
     <View style={styles.section}>
-      {personalInfoFields.map(({ id, title, value, inputMode }) => (
+      {personalInfoFields.map(({ id, title, value, inputMode }, index) => (
         <FormField
           key={id}
           title={title}
           value={value}
           inputMode={inputMode}
           handleChangeText={(text) => handleChangeText(id, text)}
+          otherStyles={
+            index === personalInfoFields.length - 1 && { borderBottomWidth: 0 }
+          }
         />
       ))}
     </View>

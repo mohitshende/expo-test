@@ -19,10 +19,13 @@ const medicalItems: MedicalItem[] = [
 const MedicalInformation = () => {
   return (
     <View style={styles.section}>
-      {medicalItems.map((item) => (
+      {medicalItems.map((item, index) => (
         <TouchableOpacity
           key={item.id}
-          style={styles.listItem}
+          style={[
+            styles.listItem,
+            index === medicalItems.length - 1 && { borderBottomWidth: 0 },
+          ]}
           activeOpacity={0.75}
         >
           <Text style={styles.listText}>{item.label}</Text>

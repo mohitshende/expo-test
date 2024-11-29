@@ -14,6 +14,7 @@ import Arrow from "@/assets/icons/right-arrow.svg";
 import Battery from "@/assets/icons/battery.svg";
 import Bluetooth from "@/assets/icons/Bluetooth.svg";
 import CloseCircle from "@/assets/icons/close-circle.svg";
+import BackgroundShade from "@/assets/icons/background-print.svg";
 
 export const icons = {
   plane,
@@ -32,4 +33,5 @@ export const icons = {
   Battery,
   Bluetooth,
   CloseCircle,
+  BackgroundShade,
 };

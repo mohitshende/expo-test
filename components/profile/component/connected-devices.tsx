@@ -25,10 +25,13 @@ const connectedDevices = [
 const ConnectedDevices = () => {
   return (
     <View style={styles.section}>
-      {connectedDevices.map((device) => (
+      {connectedDevices.map((device, index) => (
         <TouchableOpacity
           key={device.id}
-          style={styles.listItem}
+          style={[
+            styles.listItem,
+            index === connectedDevices.length - 1 && { borderBottomWidth: 0 },
+          ]}
           activeOpacity={0.75}
         >
           <View style={styles.listIconContainer}>

@@ -107,11 +107,12 @@ const Profile = () => {
       <ScrollView contentContainerStyle={styles.listContainer}>
         {sections.map((section) => (
           <View key={section.title} style={styles.section}>
-            {section.data.map((option) => (
+            {section.data.map((option, index) => (
               <ProfileListItem
                 key={option.id}
                 option={option}
                 onPress={() => onProfileListItemPress(option)}
+                isLastChild={index === section.data.length - 1}
               />
             ))}
           </View>

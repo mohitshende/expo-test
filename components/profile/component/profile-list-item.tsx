@@ -12,13 +12,15 @@ interface Option {
 const ProfileListItem = ({
   option,
   onPress,
+  isLastChild,
 }: {
   option: Option;
   onPress: () => void;
+  isLastChild: boolean;
 }) => {
   return (
     <TouchableOpacity
-      style={styles.listItem}
+      style={[styles.listItem, isLastChild && { borderBottomWidth: 0 }]}
       activeOpacity={0.75}
       onPress={onPress}
     >
