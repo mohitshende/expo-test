@@ -1,12 +1,4 @@
-import { BottomSheet } from "@/components/bottom-sheet";
-import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
-import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
-import MedicalInformation from "@/components/profile/bottom-sheet/medical-information";
-import ProfileHeader from "@/components/profile/profile-header";
-import ProfileListItem from "@/components/profile/profile-list-item";
-import { icons } from "@/constants";
-import { Colors } from "@/constants/Colors";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import {
   View,
   Text,
@@ -15,11 +7,23 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
+import BottomSheet from "@/components/bottom-sheet";
+import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
+import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
+import ConnectedDevices from "@/components/profile/component/connected-devices";
+import PersonalInformation from "@/components/profile/component/personal-information";
+import ProfileHeader from "@/components/profile/component/profile-header";
+import ProfileListItem from "@/components/profile/component/profile-list-item";
+import { icons } from "@/constants";
+import { Colors } from "@/constants/Colors";
+import MedicalInformation from "@/components/profile/component/medical-information";
+import BottomSheetFooter from "@/components/profile/bottom-sheet/bottom-sheet-footer";
 
 interface Option {
   id: number;
   title: string;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  component?: ReactElement<any, any>;
 }
 
 interface Section {
@@ -32,11 +36,41 @@ const sections: Section[] = [
   {
     title: "Profile Settings",
     data: [
-      { id: 1, title: "personal information", icon: icons.Identity },
-      { id: 2, title: "subscription", icon: icons.Crown },
-      { id: 3, title: "connected devices", icon: icons.Watch },
-      { id: 4, title: "app preferences", icon: icons.Setting },
-      { id: 5, title: "medical information", icon: icons.PlusOutlined },
+      {
+        id: 1,
+        title: "personal information",
+        icon: icons.Identity,
+        component: (
+          <>
+            <PersonalInformation />
+            <BottomSheetFooter />
+          </>
+        ),
+      },
+      {
+        id: 2,
+        title: "subscription",
+        icon: icons.Crown,
+        component: <PersonalInformation />,
+      },
+      {
+        id: 3,
+        title: "connected devices",
+        icon: icons.Watch,
+        component: <ConnectedDevices />,
+      },
+      {
+        id: 4,
+        title: "app preferences",
+        icon: icons.Setting,
+        component: <PersonalInformation />,
+      },
+      {
+        id: 5,
+        title: "medical information",
+        icon: icons.PlusOutlined,
+        component: <MedicalInformation />,
+      },
     ],
   },
   {
@@ -51,10 +85,16 @@ const sections: Section[] = [
 ];
 
 const Profile = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<Option>();
 
-  const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
+  const onClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const onProfileListItemPress = (data: Option) => {
+    setModalContent(data);
+    setIsModalOpen(true);
   };
 
   return (
@@ -68,55 +108,30 @@ const Profile = () => {
         {sections.map((section) => (
           <View key={section.title} style={styles.section}>
             {section.data.map((option) => (
-              <ProfileListItem key={option.id} option={option} />
+              <ProfileListItem
+                key={option.id}
+                option={option}
+                onPress={() => onProfileListItemPress(option)}
+              />
             ))}
           </View>
         ))}
       </ScrollView>
 
       {/* Floating Action Button */}
-      <TouchableOpacity style={styles.fab} onPress={toggleModal}>
+      <TouchableOpacity style={styles.fab}>
         <icons.Plus style={styles.fabIcon} />
         <Text style={styles.fabText}>health data</Text>
       </TouchableOpacity>
 
-      <BottomSheet isOpen={isModalOpen} toggleSheet={toggleModal}>
-        {/* 1st */}
-        {/* <>
-          <BottomSheetHeader
-            TitleIcon={icons.Watch}
-            title="connected devices"
-          />
+      <BottomSheet isVisible={isModalOpen} onClose={onClose}>
+        <BottomSheetHeader
+          TitleIcon={modalContent?.icon}
+          title={modalContent?.title || ""}
+          onClose={onClose}
+        />
 
-          <BottomSheetBody>
-            <ConnectedDevices />
-            <BottomSheetFooter />
-          </BottomSheetBody>
-        </> */}
-
-        {/* 2nd */}
-        {/* <>
-          <BottomSheetHeader
-            TitleIcon={icons.Identity}
-            title="personal information"
-          />
-
-          <BottomSheetBody>
-            <PersonalInformation />
-          </BottomSheetBody>
-        </> */}
-
-        {/* 3rd */}
-        <>
-          <BottomSheetHeader
-            TitleIcon={icons.PlusOutlined}
-            title="medical information"
-          />
-
-          <BottomSheetBody>
-            <MedicalInformation />
-          </BottomSheetBody>
-        </>
+        <BottomSheetBody>{modalContent?.component}</BottomSheetBody>
       </BottomSheet>
     </View>
   );

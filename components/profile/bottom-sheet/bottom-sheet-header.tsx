@@ -1,16 +1,40 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 
-const BottomSheetHeader = ({ TitleIcon, title }) => {
+interface BottomSheetHeaderProps {
+  TitleIcon: any;
+  title: string;
+  onClose: () => void;
+}
+
+const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({
+  TitleIcon,
+  title,
+  onClose,
+}) => {
   return (
     <View style={styles.listItem}>
       <TitleIcon style={styles.listIcon} />
       <Text style={styles.listText}>{title}</Text>
 
       {/* Right Arrow Icon */}
-      <icons.CloseCircle style={icons.CloseCircle} />
+      <TouchableOpacity
+        onPress={() => {
+          console.log("onPress fired");
+          onClose();
+        }}
+      >
+        <icons.CloseCircle />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -22,7 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
-    // marginBottom: 8,
     borderBottomWidth: 0.4,
     borderBottomColor: Colors.border.secondary,
   },

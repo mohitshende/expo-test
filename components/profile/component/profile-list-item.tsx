@@ -9,9 +9,19 @@ interface Option {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
-const ProfileListItem = ({ option }: { option: Option }) => {
+const ProfileListItem = ({
+  option,
+  onPress,
+}: {
+  option: Option;
+  onPress: () => void;
+}) => {
   return (
-    <TouchableOpacity style={styles.listItem} activeOpacity={0.75}>
+    <TouchableOpacity
+      style={styles.listItem}
+      activeOpacity={0.75}
+      onPress={onPress}
+    >
       <option.icon style={styles.listIcon} />
       <Text style={styles.listText}>{option.title}</Text>
 

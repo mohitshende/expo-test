@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import FormField from "../component/custom-form-field";
+import FormField from "./custom-form-field";
 import { Colors } from "@/constants/Colors";
 
 interface PersonalInfoField {

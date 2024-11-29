@@ -1,13 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import React from "react";
-import { Colors } from "@/constants/Colors";
-import BottomSheetFooter from "./bottom-sheet-footer";
 
 const BottomSheetBody = ({ children }: { children: React.ReactNode }) => {
   return (
