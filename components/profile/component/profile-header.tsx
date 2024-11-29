@@ -6,19 +6,30 @@ import {
   Platform,
   StatusBar,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { images, icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
+import { useNavigation } from "expo-router";
 
 const ProfileHeader = () => {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
   return (
     <ImageBackground
-    source={images.backgroundPrint}
-    style={styles.header}
-    imageStyle={styles.backgroundImage}
-  >
+      source={images.backgroundPrint}
+      style={styles.header}
+      imageStyle={styles.backgroundImage}
+    >
       {/* Here Back Icon */}
+      <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+        <icons.LeftArrow style={styles.backIcon} />
+      </TouchableOpacity>
 
       <Image source={images.userProfile} style={styles.profileImage} />
       <Text style={styles.name}>Mark Maurice</Text>
@@ -40,17 +51,19 @@ const styles = StyleSheet.create({
       Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 30 : 74,
   },
   backgroundImage: {
-    resizeMode: "cover", // Adjust how the image fits
+    resizeMode: "cover",
+    flex: 1,
   },
   backButton: {
-    // position: "absolute",
-    // top: 20,
-    // left: 16,
+    position: "absolute",
+    top: Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 17 : 17, // Adjust for Android status bar height
+    left: 15,
+    zIndex: 10,
   },
   backIcon: {
     width: 24,
     height: 24,
-    tintColor: "#fff",
+    tintColor: Colors.white,
   },
   profileImage: {
     width: 104,

@@ -7,6 +7,9 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
+import { icons } from "@/constants";
+import { Colors } from "@/constants/Colors";
+
 import BottomSheet from "@/components/bottom-sheet";
 import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
 import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
@@ -14,8 +17,6 @@ import ConnectedDevices from "@/components/profile/component/connected-devices";
 import PersonalInformation from "@/components/profile/component/personal-information";
 import ProfileHeader from "@/components/profile/component/profile-header";
 import ProfileListItem from "@/components/profile/component/profile-list-item";
-import { icons } from "@/constants";
-import { Colors } from "@/constants/Colors";
 import MedicalInformation from "@/components/profile/component/medical-information";
 import BottomSheetFooter from "@/components/profile/bottom-sheet/bottom-sheet-footer";
 
