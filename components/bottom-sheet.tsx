@@ -1,83 +1,129 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { View, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withTiming,
   withSpring,
+  withTiming,
+  interpolate,
+  Extrapolation,
+  runOnJS,
 } from "react-native-reanimated";
+import { GestureDetector, Gesture } from "react-native-gesture-handler";
 
-export function BottomSheet({ isOpen, toggleSheet, children }) {
-  const translateY = useSharedValue(isOpen ? 0 : 300);
-  const MAX_HEIGHT = 300;
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+
+interface BottomSheetProps {
+  isVisible: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+const BottomSheet: React.FC<BottomSheetProps> = ({
+  isVisible,
+  onClose,
+  children,
+}) => {
+  const translateY = useSharedValue(SCREEN_HEIGHT);
+  const THRESHOLD = SCREEN_HEIGHT * 0.25;
 
   React.useEffect(() => {
-    translateY.value = withTiming(isOpen ? 0 : MAX_HEIGHT, {
-      duration: 300,
-      stiffness: 150,
-    });
-  }, [isOpen]);
+    if (isVisible) {
+      translateY.value = withSpring(0, { damping: 20 });
+    } else {
+      translateY.value = withTiming(SCREEN_HEIGHT, { duration: 300 });
+    }
+  }, [isVisible]);
 
-  // Gesture Handler for Dragging
-  const dragGesture = Gesture.Pan()
-    .onStart(() => {})
+  const panGesture = Gesture.Pan()
     .onUpdate((event) => {
-      translateY.value = Math.max(0, translateY.value + event.changeY);
+      "worklet";
+      translateY.value = Math.max(event.translationY, 0);
     })
     .onEnd((event) => {
-      if (event.velocityY > 1000 || translateY.value > MAX_HEIGHT * 0.5) {
-        translateY.value = withTiming(MAX_HEIGHT);
-        toggleSheet();
+      "worklet";
+      if (event.translationY > THRESHOLD) {
+        translateY.value = withTiming(SCREEN_HEIGHT, { duration: 300 });
+        runOnJS(onClose)();
       } else {
-        translateY.value = withSpring(0);
+        translateY.value = withSpring(0, { damping: 20 });
       }
     });
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
-  }));
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateY: translateY.value }],
+    };
+  });
+
+  const overlayStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translateY.value,
+      [0, SCREEN_HEIGHT],
+      [0.5, 0],
+      Extrapolation.CLAMP
+    );
+    return { opacity };
+  });
+
+  if (!isVisible) return <></>;
 
   return (
     <>
-      {isOpen && (
-        <TouchableOpacity
-          style={styles.backdrop}
-          onPress={toggleSheet}
-          activeOpacity={0.7}
-        />
-      )}
-      <GestureDetector gesture={dragGesture}>
-        <Animated.View style={[styles.sheet, animatedStyle]}>
-          {/* Drag Handle */}
-          <View style={styles.dragHandle} />
-          {children}
-        </Animated.View>
-      </GestureDetector>
+      {/* Overlay */}
+      <Animated.View style={[styles.overlay, overlayStyle]}>
+        <TouchableOpacity style={StyleSheet.absoluteFill} onPress={onClose} />
+      </Animated.View>
+
+      {/* Bottom Sheet */}
+      <Animated.View style={[styles.container, animatedStyle]}>
+        <GestureDetector gesture={panGesture}>
+          <View style={styles.handleContainer}>
+            <View style={styles.handle} />
+          </View>
+        </GestureDetector>
+        <View style={styles.content}>{children}</View>
+      </Animated.View>
     </>
   );
-}
+};
+
+export default BottomSheet;
 
 const styles = StyleSheet.create({
-  sheet: {
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "black",
+    zIndex: 2,
+  },
+  container: {
     position: "absolute",
     bottom: 0,
-    width: "100%",
-    height: "auto",
+    left: 0,
+    right: 0,
+    height: SCREEN_HEIGHT * 0.5,
     backgroundColor: "white",
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 16,
+    zIndex: 2,
   },
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  handleContainer: {
+    width: "100%",
   },
-  dragHandle: {
-    width: 24,
-    height: 2,
-    backgroundColor: "#000",
-    borderRadius: 6,
+  handle: {
+    width: 40,
+    height: 6,
+    backgroundColor: "#ccc",
     alignSelf: "center",
-    marginVertical: 4,
+    borderRadius: 3,
+    paddingHorizontal: 30,
+  },
+  content: {
+    flex: 1,
   },
 });
