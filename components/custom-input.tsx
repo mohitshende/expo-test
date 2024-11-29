@@ -1,10 +1,10 @@
-import { View, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { icons } from "@/constants";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
 interface IFormField {
   inputMode?: "text";
   value: string;
   placeholder?: string;
-  fieldIcon?: any;
   handleChangeText: (text: string) => void;
   handleSubmit?: () => void;
   otherStyles?: any;
@@ -16,7 +16,6 @@ const CustomInput = ({
   inputMode,
   value = "",
   placeholder = "",
-  fieldIcon,
   handleChangeText,
   handleSubmit,
   otherStyles = "",
@@ -40,8 +39,8 @@ const CustomInput = ({
         {...props}
       />
       <TouchableOpacity onPress={handleSubmit} style={styles.iconWrapper}>
-          <Image source={fieldIcon} style={styles.inputIcon} resizeMode="contain" />
-        </TouchableOpacity>
+        <icons.Send style={styles.inputIcon} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -58,10 +57,11 @@ const styles = StyleSheet.create({
     borderColor: "rgba(46, 46, 46, 0.3)",
   },
   input: {
-    width:'90%',
+    width: "90%",
     paddingVertical: 15,
     color: "#B1B3B7",
     backgroundColor: "transparent",
+    fontFamily: "Gilroy-Medium",
     fontWeight: 400,
     fontSize: 14,
     lineHeight: 16,
@@ -70,11 +70,10 @@ const styles = StyleSheet.create({
 
   iconWrapper: {
     marginLeft: 10,
-    justifyContent: "center",
-    alignItems: "center",
   },
   inputIcon: {
-    width: 20,
-    height: 20,
+    width: 24,
+    height: 24,
+    tintColor: "rgba(0, 0, 0, 0.4)",
   },
 });
