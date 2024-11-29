@@ -2,12 +2,10 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet, Image, Platform } from "react-native";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
@@ -35,9 +33,36 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="quick-consultation"
         options={{
           title: "Quick consultation",
+          tabBarLabel: "Quick consultation",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown:false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color }) => (
             <Image
               source={icons.home}
