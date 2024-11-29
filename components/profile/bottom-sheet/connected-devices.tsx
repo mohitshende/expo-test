@@ -4,69 +4,50 @@ import { icons } from "@/constants";
 import CustomButton from "@/components/custom-button";
 import { Colors } from "@/constants/Colors";
 
+const connectedDevices = [
+  {
+    id: 1,
+    name: "Apple Watch Series 8",
+    batteryStatus: "98% battery",
+  },
+  {
+    id: 2,
+    name: "Samsung Galaxy Watch 5",
+    batteryStatus: "85% battery",
+  },
+  {
+    id: 3,
+    name: "Fitbit Versa 3",
+    batteryStatus: "75% battery",
+  },
+];
+
 const ConnectedDevices = () => {
   return (
-    <View>
-      <View style={styles.section}>
-        <TouchableOpacity style={styles.listItem} activeOpacity={0.75}>
+    <View style={styles.section}>
+      {connectedDevices.map((device) => (
+        <TouchableOpacity
+          key={device.id}
+          style={styles.listItem}
+          activeOpacity={0.75}
+        >
           <View style={styles.listIconContainer}>
             <icons.Bluetooth style={styles.listIcon} />
           </View>
 
           <View style={styles.listTextContainer}>
-            <Text style={styles.listText}>Apple Watch Series 8</Text>
+            <Text style={styles.listText}>{device.name}</Text>
             <View style={styles.listTextBatteryContainer}>
               <icons.Battery style={styles.batteryIcon} />
-              <Text style={styles.batteryStatusTitle}>98% battery</Text>
+              <Text style={styles.batteryStatusTitle}>
+                {device.batteryStatus}
+              </Text>
             </View>
           </View>
 
-          {/* Right Arrow Icon */}
-          <icons.Arrow style={icons.Arrow} />
+          <icons.Arrow style={styles.arrowIcon} />
         </TouchableOpacity>
-
-        <TouchableOpacity style={styles.listItem} activeOpacity={0.75}>
-          <View style={styles.listIconContainer}>
-            <icons.Bluetooth style={styles.listIcon} />
-          </View>
-
-          <View style={styles.listTextContainer}>
-            <Text style={styles.listText}>Apple Watch Series 8</Text>
-            <View style={styles.listTextBatteryContainer}>
-              <icons.Battery style={styles.batteryIcon} />
-              <Text style={styles.batteryStatusTitle}>98% battery</Text>
-            </View>
-          </View>
-
-          {/* Right Arrow Icon */}
-          <icons.Arrow style={icons.Arrow} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.listItem} activeOpacity={0.75}>
-          <View style={styles.listIconContainer}>
-            <icons.Bluetooth style={styles.listIcon} />
-          </View>
-
-          <View style={styles.listTextContainer}>
-            <Text style={styles.listText}>Apple Watch Series 8</Text>
-            <View style={styles.listTextBatteryContainer}>
-              <icons.Battery style={styles.batteryIcon} />
-              <Text style={styles.batteryStatusTitle}>98% battery</Text>
-            </View>
-          </View>
-
-          {/* Right Arrow Icon */}
-          <icons.Arrow style={icons.Arrow} />
-        </TouchableOpacity>
-      </View>
-
-      <CustomButton
-        title="add new device"
-        handlePress={() => {}}
-        containerStyles={{
-          marginTop: 16,
-        }}
-      />
+      ))}
     </View>
   );
 };
@@ -85,7 +66,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 8,
-    // marginBottom: 8,
     borderBottomWidth: 0.4,
     borderBottomColor: Colors.border.secondary,
   },

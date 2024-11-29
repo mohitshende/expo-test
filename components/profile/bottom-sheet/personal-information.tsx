@@ -3,38 +3,47 @@ import React from "react";
 import FormField from "../component/custom-form-field";
 import { Colors } from "@/constants/Colors";
 
+interface PersonalInfoField {
+  id: number;
+  title: string;
+  value: string;
+  inputMode?: "text" | "email" | "tel" | "numeric";
+}
+
+const personalInfoFields: PersonalInfoField[] = [
+  { id: 1, title: "full name", value: "Mark Maurice" },
+  {
+    id: 2,
+    title: "linked email ID",
+    value: "mrkmaurice@gmail.com",
+    inputMode: "email",
+  },
+  {
+    id: 3,
+    title: "linked phone number",
+    value: "9065811368",
+    inputMode: "tel",
+  },
+  { id: 4, title: "gender", value: "Male" },
+  { id: 5, title: "date of birth", value: "11-12-1980", inputMode: "text" },
+];
+
 const PersonalInformation = () => {
+  const handleChangeText = (id: number, text: string) => {
+    console.log(`Field ID: ${id}, Updated Value: ${text}`);
+  };
+
   return (
-    <View>
-      {/* <View style={styles.section}> */}
+    <View style={styles.section}>
+      {personalInfoFields.map(({ id, title, value, inputMode }) => (
         <FormField
-          title="full name"
-          value="Mark Maurice"
-          handleChangeText={() => {}}
-          
+          key={id}
+          title={title}
+          value={value}
+          inputMode={inputMode}
+          handleChangeText={(text) => handleChangeText(id, text)}
         />
-        <FormField
-          title="linked email id"
-          value="mrkmaurice@gmail.com"
-          handleChangeText={() => {}}
-        />
-        <FormField
-          title="linked phone number"
-          inputMode="tel"
-          value="9065811368"
-          handleChangeText={() => {}}
-        />
-        <FormField
-          title="gender"
-          value="male"
-          handleChangeText={() => {}}
-        />
-        <FormField
-          title="date of birth"
-          value="11-12-1980"
-          handleChangeText={() => {}}
-        />
-      {/* </View> */}
+      ))}
     </View>
   );
 };
@@ -42,11 +51,11 @@ const PersonalInformation = () => {
 export default PersonalInformation;
 
 const styles = StyleSheet.create({
-  // section: {
-  //   borderRadius: 12,
-  //   borderWidth: 0.4,
-  //   borderColor: Colors.border.secondary,
-  //   paddingVertical: 12,
-  //   paddingHorizontal: 15.3,
-  // },
+  section: {
+    borderRadius: 12,
+    borderWidth: 0.4,
+    borderColor: Colors.border.secondary,
+    paddingVertical: 12,
+    paddingHorizontal: 15.3,
+  },
 });

@@ -1,5 +1,6 @@
 import { Text, ActivityIndicator, Pressable, StyleSheet } from "react-native";
 import React from "react";
+import { Colors } from "@/constants/Colors";
 
 interface ICustomButton {
   title: string;
@@ -41,7 +42,7 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   button: {
-    flex:1,
+    flex: 1,
     borderRadius: 40,
     borderWidth: 0.6,
     paddingHorizontal: 16,
@@ -49,12 +50,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
-    textAlign:'center'
+    textAlign: "center",
   },
   buttonText: {
+    fontFamily: "Gilroy-Bold",
     fontWeight: 400,
     fontSize: 14,
-    lineHeight: 18,
-    color: "#fff",
+    lineHeight: 17.33,
+    color: Colors.white,
   },
 });

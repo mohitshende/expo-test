@@ -14,6 +14,7 @@ export default function RootLayout() {
     Recoleta: require("../assets/fonts/Recoleta-RegularDEMO.otf"),
     "Gilroy-SemiBold": require("../assets/fonts/gilroy/Gilroy-SemiBold.ttf"),
     "Gilroy-Medium": require("../assets/fonts/gilroy/Gilroy-Medium.ttf"),
+    "Gilroy-Bold": require("../assets/fonts/gilroy/Gilroy-Bold.ttf"),
   });
 
   useEffect(() => {

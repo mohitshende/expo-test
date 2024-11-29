@@ -1,17 +1,11 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "@/constants/Colors";
 
 interface IFormField {
   title: string;
   value: string;
-  inputMode?: "text" | "email" | "tel";
+  inputMode?: "text" | "email" | "tel" | "numeric";
   placeholder?: string;
   maxLength?: number;
   handleChangeText: (text: string) => void;
@@ -46,7 +40,12 @@ const FormField = ({
 
       <View style={styles.inputContainer}>
         {/* For Indian +91 */}
-        {inputMode === "tel" && <Text style={styles.formInput}>+91 -</Text>}
+        {inputMode === "tel" && (
+          <View style={styles.inputModeTel}>
+            <Text style={styles.formInput}>+91</Text>
+            <Text style={[styles.formInput, styles.dash]}>-</Text>
+          </View>
+        )}
 
         <TextInput
           inputMode={inputMode}
@@ -91,6 +90,13 @@ const styles = StyleSheet.create({
     lineHeight: 15.36,
     letterSpacing: 0.47,
     color: Colors.text.fourth,
+    marginBottom: 4,
+  },
+  inputModeTel: {
+    flexDirection: "row",
+  },
+  dash: {
+    marginHorizontal: 4,
   },
   inputContainer: {
     flexDirection: "row",
@@ -103,6 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     letterSpacing: 0.25,
     color: Colors.text.third,
+    padding: 0,
   },
 
   // edit - update

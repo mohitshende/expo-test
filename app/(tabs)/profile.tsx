@@ -1,7 +1,7 @@
 import { BottomSheet } from "@/components/bottom-sheet";
 import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
 import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
-import PersonalInformation from "@/components/profile/bottom-sheet/personal-information";
+import MedicalInformation from "@/components/profile/bottom-sheet/medical-information";
 import ProfileHeader from "@/components/profile/profile-header";
 import ProfileListItem from "@/components/profile/profile-list-item";
 import { icons } from "@/constants";
@@ -14,9 +14,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Platform,
-  Button,
-  Pressable,
 } from "react-native";
 
 interface Option {
@@ -53,10 +50,8 @@ const sections: Section[] = [
   },
 ];
 
-const modalContent = [];
-
 const Profile = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -86,16 +81,42 @@ const Profile = () => {
       </TouchableOpacity>
 
       <BottomSheet isOpen={isModalOpen} toggleSheet={toggleModal}>
-        {/* <BottomSheetHeader TitleIcon={icons.Watch} title="connected devices" /> */}
-        {/* <BottomSheetBody /> */}
-        <BottomSheetHeader
-          TitleIcon={icons.Identity}
-          title="personal information"
-        />
+        {/* 1st */}
+        {/* <>
+          <BottomSheetHeader
+            TitleIcon={icons.Watch}
+            title="connected devices"
+          />
 
-        <BottomSheetBody>
-          <PersonalInformation />
-        </BottomSheetBody>
+          <BottomSheetBody>
+            <ConnectedDevices />
+            <BottomSheetFooter />
+          </BottomSheetBody>
+        </> */}
+
+        {/* 2nd */}
+        {/* <>
+          <BottomSheetHeader
+            TitleIcon={icons.Identity}
+            title="personal information"
+          />
+
+          <BottomSheetBody>
+            <PersonalInformation />
+          </BottomSheetBody>
+        </> */}
+
+        {/* 3rd */}
+        <>
+          <BottomSheetHeader
+            TitleIcon={icons.PlusOutlined}
+            title="medical information"
+          />
+
+          <BottomSheetBody>
+            <MedicalInformation />
+          </BottomSheetBody>
+        </>
       </BottomSheet>
     </View>
   );
