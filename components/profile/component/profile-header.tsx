@@ -1,16 +1,29 @@
-import { View, Text, Image, StyleSheet, Platform, StatusBar } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Platform,
+  StatusBar,
+  ImageBackground,
+} from "react-native";
 import React from "react";
-import { images } from "@/constants";
+import { images, icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
 
 const ProfileHeader = () => {
   return (
-    <View style={styles.header}>
+    <ImageBackground
+    source={images.backgroundPrint}
+    style={styles.header}
+    imageStyle={styles.backgroundImage}
+  >
       {/* Here Back Icon */}
+
       <Image source={images.userProfile} style={styles.profileImage} />
       <Text style={styles.name}>Mark Maurice</Text>
       <Text style={styles.memberSince}>MEMBER SINCE DEC'24</Text>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -23,16 +36,21 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 24,
     elevation: 4,
-    paddingTop: Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 30 : 74,
+    paddingTop:
+      Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 30 : 74,
+  },
+  backgroundImage: {
+    resizeMode: "cover", // Adjust how the image fits
   },
   backButton: {
-    position: "absolute",
-    top: 20,
-    left: 16,
+    // position: "absolute",
+    // top: 20,
+    // left: 16,
   },
   backIcon: {
     width: 24,
     height: 24,
+    tintColor: "#fff",
   },
   profileImage: {
     width: 104,
