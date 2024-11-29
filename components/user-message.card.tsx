@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   userText: {
     color: Colors.background,
+    fontFamily:"Gilroy-SemiBold",
     fontSize: 14,
     fontWeight: 400,
     lineHeight: 16,
@@ -33,8 +34,12 @@ const styles = StyleSheet.create({
   },
   messageTime: {
     marginTop: 4,
+    color: "rgba(255, 255, 255, 0.5)",
+    fontFamily:"Gilroy-SemiBold",
     fontSize: 10,
-    color: "#aaa",
+    fontWeight: 400,
+    lineHeight: 20,
+    letterSpacing: 0.4,
     textAlign: "right",
   },
 });

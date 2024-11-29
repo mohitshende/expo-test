@@ -1,4 +1,4 @@
-import splash from "@/assets/icons/splash.png";
+import QuickConsultationIcon from "@/assets/icons/quick-consultation.svg";
 import Send from "@/assets/icons/Send.svg";
 import home from "@/assets/icons/home.png";
 import Identity from "@/assets/icons/identity.svg";
@@ -18,8 +18,8 @@ import CloseCircle from "@/assets/icons/close-circle.svg";
 import BackgroundShade from "@/assets/icons/background-print.svg";
 
 export const icons = {
+  QuickConsultationIcon,
   Send,
-  splash,
   home,
   Identity,
   Crown,

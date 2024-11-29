@@ -50,7 +50,11 @@ const BotMessageCard = ({ item, handleOptionClick }: IBotMessageProps) => {
                   containerStyles={{ backgroundColor: Colors.background2 }}
                   textStyles={{ color: "#000" }}
                 />
-                <CustomButton title="start" handlePress={() => {}} />
+                <CustomButton
+                  title="start"
+                  handlePress={() => {}}
+                  textStyles={{ fontFamily: "Gilroy-SemiBold" }}
+                />
               </View>
             </View>
           ))}
@@ -86,6 +90,7 @@ const styles = StyleSheet.create({
   },
   botText: {
     color: Colors.textPrimary,
+    fontFamily: "Gilroy-Medium",
     fontSize: 14,
     fontWeight: 400,
     lineHeight: 20,
@@ -93,6 +98,7 @@ const styles = StyleSheet.create({
   },
   messageTime: {
     color: "rgba(8, 8, 8, 0.4)",
+    fontFamily: "Gilroy-Medium",
     fontSize: 10,
     fontWeight: 400,
     lineHeight: 20,
@@ -111,7 +117,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   optionText: {
-    color: "#575FF6",
+    color: Colors.text.fifth,
+    fontFamily: "Gilroy-SemiBold",
     fontSize: 14,
     fontWeight: 400,
     lineHeight: 16,
@@ -119,6 +126,7 @@ const styles = StyleSheet.create({
   },
   optionButtonTime: {
     color: "#737373",
+    fontFamily: "Gilroy-Medium",
     fontSize: 14,
     fontWeight: 400,
     lineHeight: 16,
@@ -130,21 +138,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderTopWidth: 0.4,
-    borderTopColor: Colors.border.primary,
+    borderTopColor: Colors.text.fifth,
   },
   suggestionTitle: {
+    color: "#454545",
+    fontFamily: "Gilroy-Bold",
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 18,
     letterSpacing: 0.4,
-    color: "#454545",
   },
   suggestionDetails: {
+    color: "rgba(0, 0, 0, 0.7)",
+    fontFamily: "Gilroy-SemiBold",
     fontWeight: 400,
     fontSize: 14,
     lineHeight: 18,
     letterSpacing: 0.4,
-    color: "rgba(0, 0, 0, 0.7)",
     marginTop: 4,
     marginBottom: 12,
   },

@@ -6,7 +6,6 @@ import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 
 export default function TabLayout() {
-
   return (
     <Tabs
       screenOptions={{
@@ -18,18 +17,11 @@ export default function TabLayout() {
         headerTintColor: Colors.background,
         headerShadowVisible: true,
         headerTitleStyle: {
-          fontSize: 20,
           fontFamily: "Recoleta",
+          fontSize: 20,
           fontWeight: 500,
           letterSpacing: -0.48,
         },
-        headerLeft: () => (
-          <Image
-            source={icons.splash}
-            style={styles.headerIcon}
-            resizeMode="contain"
-          />
-        ),
       }}
     >
       <Tabs.Screen
@@ -37,6 +29,9 @@ export default function TabLayout() {
         options={{
           title: "Quick consultation",
           tabBarLabel: "Quick consultation",
+          headerLeft: () => (
+            <icons.QuickConsultationIcon style={styles.headerIcon} />
+          ),
           tabBarIcon: ({ color }) => (
             <Image
               source={icons.home}
@@ -61,7 +56,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          headerShown:false,
+          headerShown: false,
           tabBarStyle: { display: "none" },
           tabBarIcon: ({ color }) => (
             <Image
@@ -96,6 +91,5 @@ const styles = StyleSheet.create({
   headerIcon: {
     width: 32,
     height: 32,
-    marginLeft: 16,
   },
 });
