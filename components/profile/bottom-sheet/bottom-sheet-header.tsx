@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 16,
-    marginBottom: 8,
+    // marginBottom: 8,
     borderBottomWidth: 0.4,
     borderBottomColor: Colors.border.secondary,
   },

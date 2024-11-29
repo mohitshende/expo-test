@@ -13,6 +13,7 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     Recoleta: require("../assets/fonts/Recoleta-RegularDEMO.otf"),
     "Gilroy-SemiBold": require("../assets/fonts/gilroy/Gilroy-SemiBold.ttf"),
+    "Gilroy-Medium": require("../assets/fonts/gilroy/Gilroy-Medium.ttf"),
   });
 
   useEffect(() => {

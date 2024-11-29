@@ -1,7 +1,7 @@
 import { BottomSheet } from "@/components/bottom-sheet";
 import BottomSheetBody from "@/components/profile/bottom-sheet/bottom-sheet-body";
-import BottomSheetFooter from "@/components/profile/bottom-sheet/bottom-sheet-footer";
 import BottomSheetHeader from "@/components/profile/bottom-sheet/bottom-sheet-header";
+import PersonalInformation from "@/components/profile/bottom-sheet/personal-information";
 import ProfileHeader from "@/components/profile/profile-header";
 import ProfileListItem from "@/components/profile/profile-list-item";
 import { icons } from "@/constants";
@@ -53,8 +53,10 @@ const sections: Section[] = [
   },
 ];
 
+const modalContent = [];
+
 const Profile = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
@@ -84,9 +86,16 @@ const Profile = () => {
       </TouchableOpacity>
 
       <BottomSheet isOpen={isModalOpen} toggleSheet={toggleModal}>
-        <BottomSheetHeader TitleIcon={icons.Watch} title="connected devices" />
-        <BottomSheetBody />
-        <BottomSheetFooter />
+        {/* <BottomSheetHeader TitleIcon={icons.Watch} title="connected devices" /> */}
+        {/* <BottomSheetBody /> */}
+        <BottomSheetHeader
+          TitleIcon={icons.Identity}
+          title="personal information"
+        />
+
+        <BottomSheetBody>
+          <PersonalInformation />
+        </BottomSheetBody>
       </BottomSheet>
     </View>
   );
