@@ -190,7 +190,6 @@ const QuickConsultation = () => {
           handleChangeText={handleChangeText}
           placeholder="tell us your concern"
           otherStyles={{ borderWidth: 0.4 }}
-          fieldIcon={icons.plane}
           handleSubmit={handleSend}
         />
       </View>

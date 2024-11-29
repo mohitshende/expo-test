@@ -5,7 +5,8 @@ export const Colors = {
     primary: "",
     secondary: "rgba(0, 0, 0, 0.75)",
     third: "rgba(62, 62, 62, 1)", // #3E3E3E
-    fourth:"rgba(154, 164, 180, 1)"
+    fourth: "rgba(154, 164, 180, 1)",
+    fifth: "rgba(87, 95, 246, 1)", //#575FF6
   },
   textPrimary: "#080808",
   background: "#F5F5F5",
