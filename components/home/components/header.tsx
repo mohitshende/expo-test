@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 2,
     paddingHorizontal: 16,
-    marginTop: STATUS_BAR_HEIGHT,
   },
   // Left
   headerLeft: {

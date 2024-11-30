@@ -2,7 +2,9 @@ import { View, StyleSheet, Animated, StatusBar, Image } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { icons, images } from "@/constants";
 import Header from "@/components/home/components/header";
-import { SCREEN_WIDTH } from "@/constants/layout";
+import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
+import CircularProgress from "@/components/home/components/circular-progress";
+import MainHeading from "@/components/home/components/main-heading";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
@@ -28,11 +30,16 @@ const Home = () => {
             <Image source={images.maskbg} style={styles.maskImage} />
           </View>
 
-          {/* Header */}
-          <Header />
+          <View style={styles.mainContentWrapper}>
+            {/* Header */}
+            <Header />
 
-          {/* Circular Progress */}
-          <View style={styles.circularProgress}></View>
+            {/* Main Heading & Sub-Heading*/}
+            <MainHeading />
+
+            {/* Circular Progress */}
+            <CircularProgress />
+          </View>
         </View>
       </Animated.ScrollView>
     </View>
@@ -64,6 +71,11 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   //
+  mainContentWrapper: {
+    width: "100%",
+    position: "absolute",
+    marginTop: STATUS_BAR_HEIGHT,
+  },
 
   // Circular Progress
   circularProgress: {},
