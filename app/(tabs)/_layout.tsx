@@ -45,6 +45,7 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarLabel: "Home",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Image
               source={icons.home}
