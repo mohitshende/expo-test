@@ -1,18 +1,12 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Animated,
-  StatusBar,
-  Image,
-} from "react-native";
-import React, { useEffect, useRef } from "react";
-import { icons, images } from "@/constants";
+import { View, StyleSheet, Animated, StatusBar, Image } from "react-native";
+import React, { useRef } from "react";
+import { images } from "@/constants";
 import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
 import Header from "@/components/home/components/header";
 import MainHeading from "@/components/home/components/main-heading";
 import UpcomingTasks from "@/components/home/components/upcoming-tasks";
 import Insight from "@/components/home/components/Insight";
+import Achievement from "@/components/home/components/achievement";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
@@ -56,6 +50,8 @@ const Home = () => {
 
         {/* Insight Container */}
         <Insight />
+
+        <Achievement />
       </Animated.ScrollView>
     </View>
   );
