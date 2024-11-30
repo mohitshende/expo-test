@@ -15,6 +15,7 @@ export default function RootLayout() {
     "Gilroy-SemiBold": require("../assets/fonts/gilroy/Gilroy-SemiBold.ttf"),
     "Gilroy-Medium": require("../assets/fonts/gilroy/Gilroy-Medium.ttf"),
     "Gilroy-Bold": require("../assets/fonts/gilroy/Gilroy-Bold.ttf"),
+    "Gilroy-ExtraBold": require("../assets/fonts/gilroy/Gilroy-ExtraBold.ttf"),
   });
 
   useEffect(() => {

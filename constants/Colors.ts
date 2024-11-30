@@ -9,7 +9,7 @@ export const Colors = {
     fifth: "rgba(87, 95, 246, 1)", //#575FF6
   },
   textPrimary: "#080808",
-  background: "#F5F5F5",
+  background: "rgba(245, 245, 245, 1)", // #F5F5F5
   background2: "#F7F7F7",
   tint: tintColorLight,
   icon: "#687076",

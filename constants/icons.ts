@@ -17,6 +17,13 @@ import Bluetooth from "@/assets/icons/Bluetooth.svg";
 import CloseCircle from "@/assets/icons/close-circle.svg";
 import BackgroundShade from "@/assets/icons/background-print.svg";
 
+// index file
+import Bell from "../assets/icons/bell.svg";
+import Sun from "../assets/icons/sun.svg";
+import Moon from "../assets/icons/moon.svg";
+import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg";
+import Drop from "../assets/icons/water-drop.svg";
+
 export const icons = {
   QuickConsultationIcon,
   Send,
@@ -36,4 +43,11 @@ export const icons = {
   Bluetooth,
   CloseCircle,
   BackgroundShade,
+
+  // index file
+  Bell,
+  Sun,
+  Moon,
+  ArrowTrendUp,
+  Drop
 };
