@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   // Cards
   cardContainer: {
     paddingHorizontal: 16,
+    marginBottom: 24,
   },
   cardTitle: {
     fontFamily: "Gilroy-Bold",

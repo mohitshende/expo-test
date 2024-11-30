@@ -21,8 +21,8 @@ import BackgroundShade from "@/assets/icons/background-print.svg";
 import Bell from "../assets/icons/bell.svg";
 import Sun from "../assets/icons/sun.svg";
 import Moon from "../assets/icons/moon.svg";
-import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg"
-
+import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg";
+import Drop from "../assets/icons/water-drop.svg";
 
 export const icons = {
   QuickConsultationIcon,
@@ -48,5 +48,6 @@ export const icons = {
   Bell,
   Sun,
   Moon,
-  ArrowTrendUp
+  ArrowTrendUp,
+  Drop
 };

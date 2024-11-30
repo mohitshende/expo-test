@@ -12,6 +12,7 @@ import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
 import Header from "@/components/home/components/header";
 import MainHeading from "@/components/home/components/main-heading";
 import UpcomingTasks from "@/components/home/components/upcoming-tasks";
+import Insight from "@/components/home/components/Insight";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
@@ -52,6 +53,9 @@ const Home = () => {
 
         {/* UPCOMING TASKS */}
         <UpcomingTasks />
+
+        {/* Insight Container */}
+        <Insight />
       </Animated.ScrollView>
     </View>
   );
