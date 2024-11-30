@@ -1,10 +1,17 @@
-import { View, StyleSheet, Animated, StatusBar, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Animated,
+  StatusBar,
+  Image,
+} from "react-native";
 import React, { useEffect, useRef } from "react";
 import { icons, images } from "@/constants";
-import Header from "@/components/home/components/header";
 import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
-import CircularProgress from "@/components/home/components/circular-progress";
+import Header from "@/components/home/components/header";
 import MainHeading from "@/components/home/components/main-heading";
+import UpcomingTasks from "@/components/home/components/upcoming-tasks";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
@@ -30,6 +37,7 @@ const Home = () => {
             <Image source={images.maskbg} style={styles.maskImage} />
           </View>
 
+          {/* Main Content */}
           <View style={styles.mainContentWrapper}>
             {/* Header */}
             <Header />
@@ -38,9 +46,12 @@ const Home = () => {
             <MainHeading />
 
             {/* Circular Progress */}
-            <CircularProgress />
+            {/* <CircularProgress /> */}
           </View>
         </View>
+
+        {/* UPCOMING TASKS */}
+        <UpcomingTasks />
       </Animated.ScrollView>
     </View>
   );
@@ -76,7 +87,4 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: STATUS_BAR_HEIGHT,
   },
-
-  // Circular Progress
-  circularProgress: {},
 });
