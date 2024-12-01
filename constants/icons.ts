@@ -25,6 +25,10 @@ import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg";
 import Drop from "../assets/icons/water-drop.svg";
 import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
 
+// Thunder
+import ArrowCross from "../assets/icons/arrow_cross.svg";
+import LightBulb from "../assets/icons/Lightbulb_on.svg";
+
 export const icons = {
   QuickConsultationIcon,
   Send,
@@ -52,4 +56,8 @@ export const icons = {
   ArrowTrendUp,
   Drop,
   SunMoonBgEffect,
+
+  // thunder
+  ArrowCross,
+  LightBulb
 };

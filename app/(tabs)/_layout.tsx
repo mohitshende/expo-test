@@ -55,6 +55,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="thunder"
+        options={{
+          title: "Home",
+          tabBarLabel: "Home",
+          // headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.home}
+              style={[styles.icon, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           headerShown: false,
