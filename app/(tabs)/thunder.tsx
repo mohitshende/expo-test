@@ -5,6 +5,7 @@ import { icons } from "@/constants";
 import CustomButton from "@/components/custom-button";
 import HealthScoreCard from "@/components/thunder/components/health-score-card";
 import PersonalisedInsights from "@/components/thunder/components/personalised-insights";
+import HabitStacks from "@/components/thunder/components/habit-stacks";
 
 const Thunder = () => {
   return (
@@ -13,6 +14,8 @@ const Thunder = () => {
         <HealthScoreCard />
 
         <PersonalisedInsights />
+
+        <HabitStacks/>
       </ScrollView>
     </View>
   );
@@ -24,6 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 16,
-    marginBottom: 38,
+    // marginBottom: 38,
   },
 });

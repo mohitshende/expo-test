@@ -28,6 +28,9 @@ import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
 // Thunder
 import ArrowCross from "../assets/icons/arrow_cross.svg";
 import LightBulb from "../assets/icons/Lightbulb_on.svg";
+import SunOutlined from "../assets/icons/sun_outlined.svg";
+import Dumbel from "../assets/icons/dumbel.svg";
+import Clock from "../assets/icons/Clock.svg";
 
 export const icons = {
   QuickConsultationIcon,
@@ -59,5 +62,8 @@ export const icons = {
 
   // thunder
   ArrowCross,
-  LightBulb
+  LightBulb,
+  SunOutlined,
+  Dumbel,
+  Clock
 };
