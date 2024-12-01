@@ -1,14 +1,14 @@
 import { View, StyleSheet, Animated, StatusBar, Image } from "react-native";
 import React, { useRef } from "react";
-import { images } from "@/constants";
-import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
 import Header from "@/components/home/components/header";
 import MainHeading from "@/components/home/components/main-heading";
 import UpcomingTasks from "@/components/home/components/upcoming-tasks";
 import Insight from "@/components/home/components/Insight";
 import Achievement from "@/components/home/components/achievement";
 import CircularProgress from "@/components/home/components/circular-progress";
+import { SCREEN_WIDTH, STATUS_BAR_HEIGHT } from "@/constants/layout";
 import { Colors } from "@/constants/Colors";
+import { icons, images } from "@/constants";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
@@ -31,7 +31,18 @@ const Home = () => {
       >
         {/* Mask Background Image */}
         <View style={styles.background}>
-          <Image source={images.maskbg} style={styles.maskImage} />
+          {/* Main Image */}
+          <View style={styles.animatedImgContainer}>
+            <Image source={images.mainbgimg} style={styles.maskImage} />
+          </View>
+
+          {/* Sun Moon Bg shadow */}
+          <View style={styles.SunMoonImgContainer}>
+            <View style={styles.blurWrapper} />
+
+            {/* Child component will not be affected by blur */}
+            <icons.Moon style={styles.SunMoonIcon} />
+          </View>
 
           {/* Circular Progress */}
           <View style={styles.circularContainer}>
@@ -85,15 +96,18 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center",
   },
-  maskImage: {
-    flex: 1,
+  animatedImgContainer: {
     width: "100%",
     height: "100%",
+    overflow: "hidden",
+  },
+  maskImage: {
     resizeMode: "cover",
   },
   //
   mainContentWrapper: {
     width: "100%",
+    // height:'100%',
     position: "absolute",
     marginTop: STATUS_BAR_HEIGHT,
   },
@@ -101,5 +115,29 @@ const styles = StyleSheet.create({
   circularContainer: {
     position: "absolute",
     bottom: -29,
+  },
+
+  // Sun Moon
+  SunMoonImgContainer: {
+    width: 169,
+    height: 169,
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    right: -21,
+    bottom: 44,
+  },
+  blurWrapper: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    filter: "blur(100)",
+  },
+  SunMoonIcon: {
+    width: 49,
+    height: 49,
+    position: "absolute",
+    filter: "blur(14)",
   },
 });

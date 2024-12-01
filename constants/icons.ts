@@ -23,6 +23,7 @@ import Sun from "../assets/icons/sun.svg";
 import Moon from "../assets/icons/moon.svg";
 import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg";
 import Drop from "../assets/icons/water-drop.svg";
+import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
 
 export const icons = {
   QuickConsultationIcon,
@@ -49,5 +50,6 @@ export const icons = {
   Sun,
   Moon,
   ArrowTrendUp,
-  Drop
+  Drop,
+  SunMoonBgEffect,
 };
