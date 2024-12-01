@@ -7,9 +7,12 @@ import MainHeading from "@/components/home/components/main-heading";
 import UpcomingTasks from "@/components/home/components/upcoming-tasks";
 import Insight from "@/components/home/components/Insight";
 import Achievement from "@/components/home/components/achievement";
+import CircularProgress from "@/components/home/components/circular-progress";
+import { Colors } from "@/constants/Colors";
 
 const MAIN_BACKGROUND_HEIGHT = 345;
 const HEADER_HEIGHT = 49;
+const CIRCULAR_PROGRESS_SIZE = 174;
 
 const Home = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -26,23 +29,27 @@ const Home = () => {
         )}
         scrollEventThrottle={16}
       >
-        <View>
-          {/* Mask Background Image */}
-          <View style={styles.background}>
-            <Image source={images.maskbg} style={styles.maskImage} />
+        {/* Mask Background Image */}
+        <View style={styles.background}>
+          <Image source={images.maskbg} style={styles.maskImage} />
+
+          {/* Circular Progress */}
+          <View style={styles.circularContainer}>
+            <CircularProgress
+              score={78}
+              size={CIRCULAR_PROGRESS_SIZE}
+              progressColor={Colors.white}
+            />
           </View>
+        </View>
 
-          {/* Main Content */}
-          <View style={styles.mainContentWrapper}>
-            {/* Header */}
-            <Header />
+        {/* Main Content */}
+        <View style={styles.mainContentWrapper}>
+          {/* Header */}
+          <Header />
 
-            {/* Main Heading & Sub-Heading*/}
-            <MainHeading />
-
-            {/* Circular Progress */}
-            {/* <CircularProgress /> */}
-          </View>
+          {/* Main Heading & Sub-Heading*/}
+          <MainHeading />
         </View>
 
         {/* UPCOMING TASKS */}
@@ -68,12 +75,15 @@ const styles = StyleSheet.create({
     // padding: 16,
   },
   //
+
   // Mask
   background: {
     flex: 1,
     width: SCREEN_WIDTH,
     height: MAIN_BACKGROUND_HEIGHT,
     marginBottom: 52,
+    position: "relative",
+    alignItems: "center",
   },
   maskImage: {
     flex: 1,
@@ -86,5 +96,10 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "absolute",
     marginTop: STATUS_BAR_HEIGHT,
+  },
+
+  circularContainer: {
+    position: "absolute",
+    bottom: -29,
   },
 });
