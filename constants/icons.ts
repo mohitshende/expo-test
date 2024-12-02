@@ -1,6 +1,5 @@
 import QuickConsultationIcon from "@/assets/icons/quick-consultation.svg";
 import Send from "@/assets/icons/Send.svg";
-import home from "@/assets/icons/home.png";
 import Identity from "@/assets/icons/identity.svg";
 import Crown from "@/assets/icons/crown.svg";
 import Watch from "@/assets/icons/watch.svg";
@@ -35,11 +34,9 @@ import ArrowTrendUpWhite from "../assets/icons/Arrow-trend-up-white.svg";
 import ArrowTrendDownWhite from "../assets/icons/Arrow-trend-down-white.svg";
 import SettingBlack from "../assets/icons/Setting_5.svg";
 
-
 export const icons = {
   QuickConsultationIcon,
   Send,
-  home,
   Identity,
   Crown,
   Watch,
@@ -72,5 +69,5 @@ export const icons = {
   Clock,
   ArrowTrendUpWhite,
   ArrowTrendDownWhite,
-  SettingBlack
+  SettingBlack,
 };
