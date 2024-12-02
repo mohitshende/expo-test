@@ -29,12 +29,12 @@ const insights: Insight[] = [
     insight1: {
       title: "STRESS LEVELS",
       value: "23",
-      icon: <icons.ArrowTrendUp />,
+      icon: icons.ArrowTrendDownWhite ,
     },
     insight2: {
       title: "ENERGY LEVELS",
       value: "56",
-      icon: <icons.ArrowTrendUp />,
+      icon: icons.ArrowTrendUpWhite ,
     },
   },
   {
@@ -44,12 +44,12 @@ const insights: Insight[] = [
     insight1: {
       title: "STRESS LEVELS",
       value: "23",
-      icon: icons.ArrowTrendUp,
+      icon: icons.ArrowTrendDownWhite ,
     },
     insight2: {
       title: "ENERGY LEVELS",
       value: "56",
-      icon: icons.ArrowTrendUp,
+      icon: icons.ArrowTrendUpWhite ,
     },
   },
 ];
@@ -58,7 +58,9 @@ const PersonalisedInsights = () => {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.cardTitle}>PERSONALISED INSIGHTS</Text>
-      <Text style={styles.cardSubTitle}>Learn what affects your body. Explore all insights.</Text>
+      <Text style={styles.cardSubTitle}>
+        Learn what affects your body. Explore all insights.
+      </Text>
 
       <View>
         <FlatList

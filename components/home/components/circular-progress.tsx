@@ -81,7 +81,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
         <Text style={styles.label}>HEALTH SCORE</Text>
         <Text style={styles.score}>{score}</Text>
         <View style={styles.status}>
-          <icons.ArrowTrendUp style={styles.icon} />
+          <icons.ArrowTrendUpBlue style={styles.icon} />
           <Text style={styles.statusText}>
             {score >= 80 ? "Excellent" : score >= 50 ? "Improving" : "Low"}
           </Text>

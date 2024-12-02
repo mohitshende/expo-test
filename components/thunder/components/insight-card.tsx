@@ -13,12 +13,12 @@ interface Insight {
   insight1: {
     title: string;
     value: string;
-    icon: JSX.Element;
+    icon: any;
   };
   insight2: {
     title: string;
     value: string;
-    icon: JSX.Element;
+    icon: any;
   };
   backgroundColor?: string;
 }
@@ -42,7 +42,7 @@ const InsightCard: React.FC<InsightCardProps> = ({ insight }) => {
           <Text style={styles.levelTitle}>{insight1.title}</Text>
           <View style={styles.levelValueContainer}>
             <Text style={styles.levelValue}>{insight1.value}%</Text>
-            {insight1.icon}
+           < insight1.icon/>
           </View>
         </View>
 
@@ -51,7 +51,7 @@ const InsightCard: React.FC<InsightCardProps> = ({ insight }) => {
           <Text style={styles.levelTitle}>{insight2.title}</Text>
           <View style={styles.levelValueContainer}>
             <Text style={styles.levelValue}>{insight2.value}%</Text>
-            {insight1.icon}
+            <insight1.icon/>
           </View>
         </View>
       </View>

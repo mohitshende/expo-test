@@ -21,7 +21,7 @@ import BackgroundShade from "@/assets/icons/background-print.svg";
 import Bell from "../assets/icons/bell.svg";
 import Sun from "../assets/icons/sun.svg";
 import Moon from "../assets/icons/moon.svg";
-import ArrowTrendUp from "../assets/icons/Arrow-trend-up.svg";
+import ArrowTrendUpBlue from "../assets/icons/Arrow-trend-up-blue.svg";
 import Drop from "../assets/icons/water-drop.svg";
 import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
 
@@ -31,6 +31,8 @@ import LightBulb from "../assets/icons/Lightbulb_on.svg";
 import SunOutlined from "../assets/icons/sun_outlined.svg";
 import Dumbel from "../assets/icons/dumbel.svg";
 import Clock from "../assets/icons/Clock.svg";
+import ArrowTrendUpWhite from "../assets/icons/Arrow-trend-up-white.svg";
+import ArrowTrendDownWhite from "../assets/icons/Arrow-trend-down-white.svg";
 
 export const icons = {
   QuickConsultationIcon,
@@ -56,7 +58,7 @@ export const icons = {
   Bell,
   Sun,
   Moon,
-  ArrowTrendUp,
+  ArrowTrendUpBlue,
   Drop,
   SunMoonBgEffect,
 
@@ -65,5 +67,7 @@ export const icons = {
   LightBulb,
   SunOutlined,
   Dumbel,
-  Clock
+  Clock,
+  ArrowTrendUpWhite,
+  ArrowTrendDownWhite,
 };

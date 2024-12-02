@@ -8,13 +8,13 @@ type AnalyticsItem = {
   id: number;
   title: string;
   value: string;
-  icon: React.ComponentType; // Icon component type
+  icon: any; // Icon component type
 };
 
 const analytics: AnalyticsItem[] = [
-  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUp },
-  { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendUp },
-  { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUp },
+  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
+  { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
+  { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
 ];
 
 const HealthScoreCard: React.FC = () => {
@@ -29,7 +29,7 @@ const HealthScoreCard: React.FC = () => {
           <Text style={styles.subTitleText}>My Health Score</Text>
 
           <View style={styles.improveSteadilyContainer}>
-            <icons.ArrowTrendUp style={styles.growthIcon} />
+            <icons.ArrowTrendUpWhite style={styles.growthIcon} />
             <Text style={styles.improveSteadilyText}>improving steadily</Text>
           </View>
         </View>
@@ -48,7 +48,7 @@ const HealthScoreCard: React.FC = () => {
               <Text style={styles.infoTitle}>{info.title}</Text>
               <View style={styles.infoCardValueContainer}>
                 <Text style={styles.infoValue}>{info.value}</Text>
-                <icons.ArrowTrendUp />
+                <info.icon/>
               </View>
             </View>
           </View>
