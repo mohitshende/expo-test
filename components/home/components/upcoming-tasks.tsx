@@ -66,6 +66,7 @@ const UpcomingTasks = () => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => <TaskCard task={item} />}
           ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
+          contentContainerStyle={{ paddingRight: 16 }}
         />
       </View>
     </View>
@@ -77,7 +78,7 @@ export default UpcomingTasks;
 const styles = StyleSheet.create({
   // Cards
   cardContainer: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
     marginBottom: 24,
   },
   cardTitle: {
