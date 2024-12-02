@@ -4,13 +4,20 @@ import CustomButton from "@/components/custom-button";
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 
-const moreInfos = [
-  { id: 1, title: "VITALS", value: "92", icon: icons.ArrowTrendUp },
+type AnalyticsItem = {
+  id: number;
+  title: string;
+  value: string;
+  icon: React.ComponentType; // Icon component type
+};
+
+const analytics: AnalyticsItem[] = [
+  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUp },
   { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendUp },
   { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUp },
 ];
 
-const HealthScoreCard = () => {
+const HealthScoreCard: React.FC = () => {
   return (
     <View style={styles.healthScoreCard}>
       {/* Content */}
@@ -18,7 +25,7 @@ const HealthScoreCard = () => {
         {/* Score */}
         <Text style={styles.titleNumber}>78</Text>
 
-        <View >
+        <View>
           <Text style={styles.subTitleText}>My Health Score</Text>
 
           <View style={styles.improveSteadilyContainer}>
@@ -28,13 +35,21 @@ const HealthScoreCard = () => {
         </View>
       </View>
 
-      <View style={styles.healthScoreMoreInfo}>
-        {moreInfos.map((info) => (
-          <View style={styles.infoCard} key={info.id}>
-            <Text style={styles.infoTitle}>{info.title}</Text>
-            <View style={styles.infoCardValue}>
-              <Text style={styles.infoValue}>{info.value}</Text>
-              <icons.ArrowTrendUp />
+      <View style={styles.analyticsContainer}>
+        {analytics.map((info, index) => (
+          <View
+            key={info.id}
+            style={[
+              styles.infoBlock,
+              analytics.length - 1 === index && { borderRightWidth: 0 },
+            ]}
+          >
+            <View style={styles.infoContentContainer}>
+              <Text style={styles.infoTitle}>{info.title}</Text>
+              <View style={styles.infoCardValueContainer}>
+                <Text style={styles.infoValue}>{info.value}</Text>
+                <icons.ArrowTrendUp />
+              </View>
             </View>
           </View>
         ))}
@@ -58,7 +73,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     backgroundColor: "rgba(5, 150, 105, 1)",
     elevation: 6,
-    marginBottom:24
+    marginBottom: 24,
   },
   healthScore: {
     flexDirection: "row",
@@ -88,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
 
-  // Imporve
+  // Imporve steadily
   improveSteadilyContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -106,18 +121,23 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
 
-  // More Info
-  healthScoreMoreInfo: {
-    backgroundColor: "rgba(0, 0, 0, 0.1)",
+  // Analytics
+  analyticsContainer: {
     flexDirection: "row",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
     marginBottom: 8,
+    paddingVertical: 3,
   },
-  infoCard: {
+  infoBlock: {
     flex: 1,
+    alignItems: "center",
     justifyContent: "center",
     borderRightWidth: 0.5,
     borderColor: "rgba(255, 255, 255, 0.2)",
     paddingVertical: 3,
+  },
+  infoContentContainer: {
+    alignItems: "flex-start",
   },
   infoTitle: {
     color: "rgba(255, 255, 255, 0.6)",
@@ -125,9 +145,8 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 11.12,
     lineHeight: 13.62,
-    marginBottom: 2,
   },
-  infoCardValue: {
+  infoCardValueContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
