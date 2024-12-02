@@ -26,7 +26,7 @@ import Drop from "../assets/icons/water-drop.svg";
 import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
 
 // Thunder
-import ArrowCross from "../assets/icons/arrow_cross.svg";
+import FullScreen from "../assets/icons/arrow_cross.svg";
 import LightBulb from "../assets/icons/Lightbulb_on.svg";
 import SunOutlined from "../assets/icons/sun_outlined.svg";
 import Dumbel from "../assets/icons/dumbel.svg";
@@ -65,7 +65,7 @@ export const icons = {
   SunMoonBgEffect,
 
   // thunder
-  ArrowCross,
+  FullScreen,
   LightBulb,
   SunOutlined,
   Dumbel,

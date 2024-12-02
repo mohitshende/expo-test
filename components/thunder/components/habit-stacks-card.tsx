@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import React from "react";
-import { SCREEN_WIDTH } from "@/constants/layout";
 import { icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
 
@@ -72,6 +71,19 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     backgroundColor: Colors.white,
     borderRadius: 11.5,
+
+    // shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: { width: 4, height: 0 }, 
+        shadowOpacity: 0.45, 
+        shadowRadius: 15, 
+      },
+      android: {
+        elevation: 15, 
+      },
+    }),
   },
   // header
   habitCardHeader: {

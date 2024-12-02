@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 import React from "react";
 import CustomButton from "@/components/custom-button";
 import { Colors } from "@/constants/Colors";
@@ -48,7 +48,7 @@ const HealthScoreCard: React.FC = () => {
               <Text style={styles.infoTitle}>{info.title}</Text>
               <View style={styles.infoCardValueContainer}>
                 <Text style={styles.infoValue}>{info.value}</Text>
-                <info.icon/>
+                <info.icon />
               </View>
             </View>
           </View>
@@ -60,6 +60,10 @@ const HealthScoreCard: React.FC = () => {
         handlePress={() => {}}
         containerStyles={{ marginHorizontal: 12 }}
       />
+
+      <View style={styles.fullScreenIconContainer}>
+        <icons.FullScreen />
+      </View>
     </View>
   );
 };
@@ -72,8 +76,20 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     paddingBottom: 12,
     backgroundColor: "rgba(5, 150, 105, 1)",
-    elevation: 6,
     marginBottom: 24,
+
+    // shadow
+    ...Platform.select({
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.35,
+        shadowRadius: 6,
+      },
+      android: {
+        elevation: 6,
+      },
+    }),
   },
   healthScore: {
     flexDirection: "row",
@@ -156,5 +172,12 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 20,
     lineHeight: 24.76,
+  },
+
+  // full screen icon
+  fullScreenIconContainer: {
+    position: "absolute",
+    top: 16,
+    right: 16,
   },
 });
