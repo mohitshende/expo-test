@@ -10,7 +10,7 @@ import HabitStacks from "@/components/thunder/components/habit-stacks";
 const Thunder = () => {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView >
         <HealthScoreCard />
 
         <PersonalisedInsights />
@@ -26,7 +26,7 @@ export default Thunder;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 16,
+    paddingTop: 16,
     // marginBottom: 38,
   },
 });
