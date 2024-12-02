@@ -1,16 +1,71 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet, Image, Platform, StatusBar } from "react-native";
+import { StyleSheet, Image, Platform, StatusBar, View } from "react-native";
 
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 import CustomHeader from "@/components/custom-header";
+import CalendarIcon from "@/components/tab-bar/clipboard-icon";
+import ThunderIcon from "@/components/tab-bar/thunder-icon";
+import HomeIcon from "@/components/tab-bar/home-icon";
+import ClipboardIcon from "@/components/tab-bar/clipboard-icon";
+import HeartIcon from "@/components/tab-bar/heart-icon";
+import UserIcon from "@/components/tab-bar/user-icon";
+
+interface ITabBar {
+  icon?: any;
+  color: any;
+  focused: boolean;
+}
+type IconComponent = React.FC<{
+  color: string;
+  size: number;
+  focused: boolean;
+}>;
+
+const TabIcon =
+  (Icon: IconComponent) =>
+  ({ color, focused }: ITabBar) => {
+    console.log("color", color);
+
+    return (
+      <View style={styles.tabBarItem}>
+        <Icon color={focused ? "red" : color} size={45} focused={focused} />
+      </View>
+    );
+  };
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "light",
+        tabBarActiveTintColor: "black",
+        tabBarShowLabel: false,
+
+        // tab bar style
+        tabBarStyle: {
+          height: 80,
+          backgroundColor: "rgba(247, 247, 247, 1)",
+          borderTopColor: "rgba(171, 178, 146, 1)",
+          alignItems: "center",
+          paddingTop: 20,
+          paddingBottom: Platform.OS === "ios" ? 20 : 10,
+          paddingHorizontal: 33,
+          borderTopWidth: 0.4,
+
+          // shadow
+          ...Platform.select({
+            ios: {
+              shadowColor: "#000",
+              shadowOpacity: 0.15,
+              shadowOffset: { width: 0, height: -4 },
+              shadowRadius: 24,
+            },
+            android: {
+              elevation: 8,
+            },
+          }),
+        },
         headerStyle: [
           styles.header,
           { backgroundColor: Colors.tabHeaderBackground, height: 90 },
@@ -26,43 +81,46 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="quick-consultation"
+        name="index"
         options={{
-          title: "Quick consultation",
-          tabBarLabel: "Quick consultation",
-          headerLeft: () => (
-            <icons.QuickConsultationIcon style={styles.headerIcon} />
-          ),
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={icons.home}
-              style={[styles.icon, { tintColor: color }]}
-            />
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <HomeIcon color={color} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="quick-consultation"
         options={{
-          title: "Home",
-          tabBarLabel: "Home",
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={icons.home}
-              style={[styles.icon, { tintColor: color }]}
-            />
+          headerLeft: () => (
+            <icons.QuickConsultationIcon style={styles.headerIcon} />
+          ),
+          tabBarIcon: ({ color, focused }) => (
+            <ClipboardIcon color={color} focused={focused} />
           ),
         }}
       />
       <Tabs.Screen
         name="thunder"
         options={{
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={icons.home}
-              style={[styles.icon, { tintColor: color }]}
-            />
+          tabBarIcon: ({ color, focused }) => (
+            <ThunderIcon color={color} focused={focused} />
+          ),
+          header: () => (
+            <>
+              <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+              <CustomHeader />
+            </>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="heart"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <HeartIcon color={color} focused={focused} />
           ),
           header: () => (
             <>
@@ -77,11 +135,8 @@ export default function TabLayout() {
         options={{
           headerShown: false,
           tabBarStyle: { display: "none" },
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={icons.home}
-              style={[styles.icon, { tintColor: color }]}
-            />
+          tabBarIcon: ({ color, focused }) => (
+            <UserIcon color={color} focused={focused} />
           ),
         }}
       />
@@ -110,5 +165,13 @@ const styles = StyleSheet.create({
   headerIcon: {
     width: 32,
     height: 32,
+  },
+
+  // tab bar - bottom
+
+  tabBarItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
 });
