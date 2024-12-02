@@ -1,23 +1,37 @@
 import { View, Text, StyleSheet, Platform } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
+import { SCREEN_WIDTH } from "@/constants/layout";
 
-const CARD_WIDTH = 312;
+// const CARD_WIDTH = 312;
 
-const activities = [
-  { id: 1, time: "7:00am", icon: <icons.SunOutlined />, title: "Sunlight" },
-  { id: 2, time: "7:00am", icon: <icons.Dumbel />, title: "Exercise" },
-  { id: 3, time: "7:00am", icon: <icons.SunOutlined />, title: "Breakfast" },
+interface Activity {
+  id: number;
+  time: string;
+  icon: any;
+  title: string;
+}
+
+interface Metric {
+  id: number;
+  title: string;
+  value: string;
+}
+
+const activities: Activity[] = [
+  { id: 1, time: "7:00am", icon: icons.SunOutlined, title: "Sunlight" },
+  { id: 2, time: "7:00am", icon: icons.Dumbel, title: "Exercise" },
+  { id: 3, time: "7:00am", icon: icons.SunOutlined, title: "Breakfast" },
 ];
 
-const metrics = [
+const metrics: Metric[] = [
   { id: 1, title: "ENERGY", value: "+32" },
   { id: 2, title: "METABOLISM", value: "+92" },
   { id: 3, title: "MOOD", value: "+28" },
 ];
 
-const HabitStacksCard = () => {
+const HabitStacksCard: React.FC = () => {
   return (
     <View style={styles.habitStackCard}>
       {/* Header */}
@@ -38,7 +52,7 @@ const HabitStacksCard = () => {
               <Text style={styles.timeText}>{activity.time}</Text>
             </View>
 
-            {activity.icon}
+            <activity.icon />
 
             <Text style={styles.activityText}>{activity.title}</Text>
           </View>
@@ -68,7 +82,7 @@ export default HabitStacksCard;
 
 const styles = StyleSheet.create({
   habitStackCard: {
-    width: CARD_WIDTH,
+    width: SCREEN_WIDTH - 32,
     backgroundColor: Colors.white,
     borderRadius: 11.5,
 
@@ -76,12 +90,12 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: "#000",
-        shadowOffset: { width: 4, height: 0 }, 
-        shadowOpacity: 0.45, 
-        shadowRadius: 15, 
+        shadowOffset: { width: 4, height: 0 },
+        shadowOpacity: 0.45,
+        shadowRadius: 15,
       },
       android: {
-        elevation: 15, 
+        elevation: 15,
       },
     }),
   },
@@ -160,7 +174,8 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 4,
     marginLeft: 20,
-    width: 137,
+    width: "auto",
+    alignSelf: "flex-start",
   },
   impactTitle: {
     color: "rgba(0, 0, 0, 0.7)",
