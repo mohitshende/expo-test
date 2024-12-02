@@ -2,6 +2,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import React from "react";
 import { icons, images } from "@/constants";
 import InsightCard from "./insight-card";
+import InsightCardLast from "./insight-card-last";
 
 type Insight = {
   id: number;
@@ -29,12 +30,12 @@ const insights: Insight[] = [
     insight1: {
       title: "STRESS LEVELS",
       value: "23",
-      icon: icons.ArrowTrendDownWhite ,
+      icon: icons.ArrowTrendDownWhite,
     },
     insight2: {
       title: "ENERGY LEVELS",
       value: "56",
-      icon: icons.ArrowTrendUpWhite ,
+      icon: icons.ArrowTrendUpWhite,
     },
   },
   {
@@ -44,12 +45,12 @@ const insights: Insight[] = [
     insight1: {
       title: "STRESS LEVELS",
       value: "23",
-      icon: icons.ArrowTrendDownWhite ,
+      icon: icons.ArrowTrendDownWhite,
     },
     insight2: {
       title: "ENERGY LEVELS",
       value: "56",
-      icon: icons.ArrowTrendUpWhite ,
+      icon: icons.ArrowTrendUpWhite,
     },
   },
 ];
@@ -71,6 +72,8 @@ const PersonalisedInsights = () => {
           renderItem={({ item }) => <InsightCard insight={item} />}
           ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
           contentContainerStyle={{ paddingRight: 16 }}
+          ListFooterComponent={<InsightCardLast />}
+          ListFooterComponentStyle={{marginLeft: 16}}
         />
       </View>
     </View>

@@ -5,6 +5,7 @@ import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
 
 const CARD_WIDTH = 283;
+const CARD_HEIGHT = 163;
 const LABEL_HEIGHT = 32;
 
 interface Insight {
