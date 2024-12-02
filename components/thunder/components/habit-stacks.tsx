@@ -1,36 +1,64 @@
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import React from "react";
-import { images } from "@/constants";
+import React, { useState } from "react";
+import { icons, images } from "@/constants";
 import CustomButton from "@/components/custom-button";
 import HabitStacksCard from "./habit-stacks-card";
+import { useSharedValue } from "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { data } from "@/constants/data";
 
 const HabitStacks = () => {
+  const [newData, setNewData] = useState([...data, ...data]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const animatedValue = useSharedValue(0);
+  const MAX = 2;
+
   return (
-    <View style={styles.habitStackContainer}>
-      <ImageBackground
-        source={images.AchievementbgPrint}
-        style={styles.achievementImgContainer}
-        imageStyle={styles.backgroundImage}
-      >
-        <Text style={styles.habitStackHeading}>HABIT STACKS</Text>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.habitStackContainer}>
+        <ImageBackground
+          source={images.AchievementbgPrint}
+          style={styles.achievementImgContainer}
+          imageStyle={styles.backgroundImage}
+        >
+          <Text style={styles.habitStackHeading}>HABIT STACKS</Text>
 
-        <Text style={styles.habitStackSubHeading}>
-          We have combined habits for better impact.
-        </Text>
+          <Text style={styles.habitStackSubHeading}>
+            We have combined habits for better impact.
+          </Text>
 
-        {/* Card */}
-        <View style={styles.habitStackCardContainer}>
-          <HabitStacksCard />
-        </View>
+          {/* Card */}
+          <View style={styles.habitStackCardContainer}>
+            {newData.map((item, index) => {
+              if (index > currentIndex + MAX || index < currentIndex) {
+                return null;
+              }
+              return (
+                <HabitStacksCard
+                  newData={newData}
+                  setNewData={setNewData}
+                  maxVisibleItems={MAX}
+                  item={item}
+                  index={index}
+                  dataLength={newData.length}
+                  animatedValue={animatedValue}
+                  currentIndex={currentIndex}
+                  setCurrentIndex={setCurrentIndex}
+                  key={index}
+                />
+              );
+            })}
+          </View>
 
-        {/* button */}
-        <CustomButton
-          title="all habit stacks"
-          handlePress={() => {}}
-          containerStyles={{ marginHorizontal: "auto" }}
-        />
-      </ImageBackground>
-    </View>
+          {/* button */}
+          <CustomButton
+            title="all habit stacks"
+            handlePress={() => {}}
+            containerStyles={{ marginHorizontal: "auto" }}
+          />
+        </ImageBackground>
+      </View>
+    </GestureHandlerRootView>
   );
 };
 
@@ -73,6 +101,11 @@ const styles = StyleSheet.create({
   //
   // cards
   habitStackCardContainer: {
-    marginBottom:18
+    marginBottom: 18,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    height: 250,
   },
 });

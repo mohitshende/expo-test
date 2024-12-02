@@ -23,17 +23,6 @@ type IconComponent = React.FC<{
   focused: boolean;
 }>;
 
-const TabIcon =
-  (Icon: IconComponent) =>
-  ({ color, focused }: ITabBar) => {
-    console.log("color", color);
-
-    return (
-      <View style={styles.tabBarItem}>
-        <Icon color={focused ? "red" : color} size={45} focused={focused} />
-      </View>
-    );
-  };
 
 export default function TabLayout() {
   return (

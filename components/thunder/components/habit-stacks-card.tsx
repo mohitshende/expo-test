@@ -1,80 +1,174 @@
-import { View, Text, StyleSheet, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  useWindowDimensions,
+} from "react-native";
 import React, { useState } from "react";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { icons } from "@/constants";
+import Animated, {
+  interpolate,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 import { SCREEN_WIDTH } from "@/constants/layout";
+import { HabitStackItem } from "@/constants/data";
 
-// const CARD_WIDTH = 312;
-
-interface Activity {
-  id: number;
-  time: string;
-  icon: any;
-  title: string;
+interface HabitStacksCardProps {
+  newData: HabitStackItem[];
+  setNewData: React.Dispatch<React.SetStateAction<any[]>>;
+  maxVisibleItems: number;
+  item: any;
+  index: number;
+  dataLength: number;
+  animatedValue: Animated.SharedValue<number>;
+  currentIndex: number;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-interface Metric {
-  id: number;
-  title: string;
-  value: string;
-}
+const HabitStacksCard: React.FC<HabitStacksCardProps> = ({
+  newData,
+  setNewData,
+  maxVisibleItems,
+  item,
+  index,
+  dataLength,
+  animatedValue,
+  currentIndex,
+  setCurrentIndex,
+}) => {
+  const { activities, impacts } = item;
 
-const activities: Activity[] = [
-  { id: 1, time: "7:00am", icon: icons.SunOutlined, title: "Sunlight" },
-  { id: 2, time: "7:00am", icon: icons.Dumbel, title: "Exercise" },
-  { id: 3, time: "7:00am", icon: icons.SunOutlined, title: "Breakfast" },
-];
+  const { width } = useWindowDimensions();
+  const translateX = useSharedValue(0);
+  const direction = useSharedValue(0);
 
-const metrics: Metric[] = [
-  { id: 1, title: "ENERGY", value: "+32" },
-  { id: 2, title: "METABOLISM", value: "+92" },
-  { id: 3, title: "MOOD", value: "+28" },
-];
+  const pan = Gesture.Pan()
+    .onUpdate((e) => {
+      // e.translationX is the distance of the swipe
+      // e.translationX is positive if the swipe is to the right
+      // isSwipeRight is true if the swipe is to the right
+      const isSwipeRight = e.translationX > 0;
 
-const HabitStacksCard: React.FC = () => {
+      // direction 1 is right, -1 is left
+      direction.value = isSwipeRight ? 1 : -1;
+
+      // If the current index is the same as the index of the card
+      if (currentIndex === index) {
+        translateX.value = e.translationX;
+        animatedValue.value = interpolate(
+          Math.abs(e.translationX),
+          [0, width],
+          [index, index + 1]
+        );
+      }
+    })
+    .onEnd((e) => {
+      if (currentIndex === index) {
+        // If the swipe distance is greater than 150 or the swipe velocity is greater than 1000
+        // go to the next card
+        if (Math.abs(e.translationX) > 150 || Math.abs(e.velocityX) > 1000) {
+          translateX.value = withTiming(width * direction.value, {}, () => {
+            runOnJS(setNewData)([...newData, newData[currentIndex]]);
+            runOnJS(setCurrentIndex)(currentIndex + 1);
+          });
+          animatedValue.value = withTiming(currentIndex + 1);
+          // If the swipe distance is less than 150 or the swipe velocity is less than 1000
+          // go back to the original position
+        } else {
+          translateX.value = withTiming(0, { duration: 500 });
+          animatedValue.value = withTiming(currentIndex, { duration: 500 });
+        }
+      }
+    });
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const currentItem = index === currentIndex;
+
+    // Adjusting the translateX to move the card to the right
+    const translateXPosition = interpolate(
+      animatedValue.value,
+      [index - 1, index],
+      [width * 0.1, 0] // Move from the right (width) to the original position (0)
+    );
+
+    const scale = interpolate(
+      animatedValue.value,
+      [index - 1, index],
+      [0.9, 1]
+    );
+
+    const opacity = interpolate(
+      animatedValue.value + maxVisibleItems,
+      [index, index + 1],
+      [0, 1]
+    );
+
+    return {
+      transform: [
+        { scale: currentItem ? 1 : scale },
+        { translateX: translateXPosition },
+      ],
+      opacity: index < currentIndex + maxVisibleItems ? 1 : opacity,
+    };
+  });
+
   return (
-    <View style={styles.habitStackCard}>
-      {/* Header */}
-      <View style={styles.habitCardHeader}>
-        <Text style={styles.habitHeading}>Morning optimizer</Text>
+    <GestureDetector gesture={pan}>
+      <Animated.View
+        style={[
+          styles.habitStackCard,
+          { zIndex: dataLength - index },
+          animatedStyle,
+        ]}
+      >
+        {/* Header */}
+        <View style={styles.habitCardHeader}>
+          <Text style={styles.habitHeading}>{item.title}</Text>
 
-        <View style={styles.habitSubHeadingContainer}>
-          <icons.Clock />
-          <Text style={styles.habitSubHeading}>15 day streak</Text>
-        </View>
-      </View>
-
-      {/* Body */}
-      <View style={styles.scheduleContainer}>
-        {activities.map((activity) => (
-          <View style={styles.activityContainer} key={activity.id}>
-            <View style={styles.timeContainer}>
-              <Text style={styles.timeText}>{activity.time}</Text>
-            </View>
-
-            <activity.icon />
-
-            <Text style={styles.activityText}>{activity.title}</Text>
+          <View style={styles.habitSubHeadingContainer}>
+            <icons.Clock />
+            <Text style={styles.habitSubHeading}>{item.duration}</Text>
           </View>
-        ))}
-      </View>
-
-      {/* Footer */}
-      <View style={styles.habitFooter}>
-        <View style={styles.predictedImpactContainer}>
-          <Text style={styles.impactTitle}>predicted impact</Text>
         </View>
 
-        <View style={styles.metricsContainer}>
-          {metrics.map((metric) => (
-            <View style={styles.metricItem} key={metric.id}>
-              <Text style={styles.metricTitle}>{metric.title}</Text>
-              <Text style={styles.metricValue}>{metric.value}%</Text>
+        {/* Body */}
+        <View style={styles.scheduleContainer}>
+          {activities.map((activity: any) => (
+            <View style={styles.activityContainer} key={activity.id}>
+              <View style={styles.timeContainer}>
+                <Text style={styles.timeText}>{activity.time}</Text>
+              </View>
+
+              <activity.icon />
+
+              <Text style={styles.activityText}>{activity.name}</Text>
             </View>
           ))}
         </View>
-      </View>
-    </View>
+
+        {/* Footer */}
+        <View style={styles.habitFooter}>
+          <View style={styles.predictedImpactContainer}>
+            <Text style={styles.impactTitle}>predicted impact</Text>
+          </View>
+
+          <View style={styles.metricsContainer}>
+            {impacts.map((impact: any) => (
+              <View style={styles.metricItem} key={impact.id}>
+                <Text style={styles.metricTitle}>{impact.name}</Text>
+                <Text style={styles.metricValue}>{impact.value}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Animated.View>
+    </GestureDetector>
   );
 };
 
@@ -82,9 +176,12 @@ export default HabitStacksCard;
 
 const styles = StyleSheet.create({
   habitStackCard: {
-    width: SCREEN_WIDTH - 32,
+    // width: SCREEN_WIDTH - 32,
     backgroundColor: Colors.white,
     borderRadius: 11.5,
+    position: "absolute",
+    width: SCREEN_WIDTH - 50,
+    right: 16,
 
     // shadow
     ...Platform.select({
