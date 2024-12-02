@@ -33,6 +33,8 @@ import Dumbel from "../assets/icons/dumbel.svg";
 import Clock from "../assets/icons/Clock.svg";
 import ArrowTrendUpWhite from "../assets/icons/Arrow-trend-up-white.svg";
 import ArrowTrendDownWhite from "../assets/icons/Arrow-trend-down-white.svg";
+import SettingBlack from "../assets/icons/Setting_5.svg";
+
 
 export const icons = {
   QuickConsultationIcon,
@@ -70,4 +72,5 @@ export const icons = {
   Clock,
   ArrowTrendUpWhite,
   ArrowTrendDownWhite,
+  SettingBlack
 };

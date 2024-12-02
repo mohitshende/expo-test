@@ -1,9 +1,10 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { StyleSheet, Image, Platform } from "react-native";
+import { StyleSheet, Image, Platform, StatusBar } from "react-native";
 
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
+import CustomHeader from "@/components/custom-header";
 
 export default function TabLayout() {
   return (
@@ -57,14 +58,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="thunder"
         options={{
-          title: "Home",
-          tabBarLabel: "Home",
-          // headerShown: false,
           tabBarIcon: ({ color }) => (
             <Image
               source={icons.home}
               style={[styles.icon, { tintColor: color }]}
             />
+          ),
+          header: () => (
+            <>
+              <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+              <CustomHeader />
+            </>
           ),
         }}
       />
