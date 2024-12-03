@@ -105,9 +105,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="heart"
+        name="analytics"
         options={{
           headerShown: false,
+          tabBarStyle: { display: "none" },
           tabBarIcon: ({ color, focused }) => (
             <HeartIcon color={color} focused={focused} />
           ),
