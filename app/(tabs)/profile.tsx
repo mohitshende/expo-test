@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
   listContainer: {
     paddingVertical: 24,
     paddingHorizontal: 16,
+    paddingBottom: 68
   },
   section: {
     marginBottom: 16,
@@ -176,6 +177,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 400,
     lineHeight: 18,
+
+    
+    // shadow
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 5,
+    elevation: 8,
   },
   fabIcon: {
     width: 13.35,
