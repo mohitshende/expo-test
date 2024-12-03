@@ -1,8 +1,10 @@
+import TabButton from "@/components/analytics/components/tab-button";
 import TimeLabelCard from "@/components/analytics/components/time-label-card";
 import TimelineHeader from "@/components/analytics/components/timeline-header";
 import TimelineItem from "@/components/analytics/components/timeline-item";
 import { icons } from "@/constants";
 import { Colors } from "@/constants/Colors";
+import { analytics, timeFilters, timelineData } from "@/constants/data";
 import { useNavigation } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -17,19 +19,6 @@ import {
 
 const TOP_CONTAINER_HEIGHT = 355;
 
-type AnalyticsItem = {
-  id: number;
-  title: string;
-  value: string;
-  icon: any; // Icon component type
-};
-
-const analytics: AnalyticsItem[] = [
-  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
-  { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
-  { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
-];
-
 const Analytics = () => {
   const [activeTab, setActiveTab] = useState("journey");
   const [activeTimeFilter, setActiveTimeFilter] = useState("1m");
@@ -39,38 +28,12 @@ const Analytics = () => {
     navigation.goBack();
   };
 
-  const timeFilters = [
-    { id: "1m", label: "1m" },
-    { id: "3m", label: "3m" },
-    { id: "6m", label: "6m" },
-    { id: "12m", label: "12m" },
-  ];
-
-  const timelineData = [
-    {
-      date: "SEP 15",
-      title: "New habit formed: Meditation practice",
-      description: "You completed a 15-day streak",
-    },
-    {
-      date: "OCT 01",
-      title: "Consistent sleep-wake cycle established",
-      description: "You completed a 30-day morning routine streak",
-    },
-    {
-      date: "OCT 01",
-      title: "Consistent sleep-wake cycle established",
-      description: "You completed a 30-day morning routine streak",
-    },
-    {
-      date: "OCT 01",
-      title: "Consistent sleep-wake cycle established",
-      description: "You completed a 30-day morning routine streak",
-    },
-  ];
-
   const handleTimeLabelClick = (id: string) => {
     setActiveTimeFilter(id);
+  };
+
+  const handleTabButton = (title: string) => {
+    setActiveTab(title);
   };
 
   return (
@@ -135,46 +98,27 @@ const Analytics = () => {
       <View style={styles.tabContainerWrapper}>
         <View style={styles.tabContainerInsideWrapper}>
           {/* tab container header */}
-          <View style={styles.tabContainerHeader}>
-            <View style={styles.tabButtonContainer}>
-              <TouchableOpacity
-                style={[
-                  styles.tabButton,
-                  activeTab === "overview" && styles.activeTabButton,
-                ]}
-                onPress={() => setActiveTab("overview")}
-              >
-                <Text
-                  style={[
-                    styles.tabText,
-                    activeTab === "overview" && styles.activeTabText,
-                  ]}
-                >
-                  overview
-                </Text>
-              </TouchableOpacity>
+          <View style={styles.tabContainer}>
+            <View style={styles.tabWrapper}>
+              <TabButton
+                title="overview"
+                handleTabButton={handleTabButton}
+                activeTab={activeTab}
+              />
 
-              <TouchableOpacity
-                style={[
-                  styles.tabButton,
-                  activeTab === "journey" && styles.activeTabButton,
-                ]}
-                onPress={() => setActiveTab("journey")}
-              >
-                <Text
-                  style={[
-                    styles.tabText,
-                    activeTab === "journey" && styles.activeTabText,
-                  ]}
-                >
-                  Journey
-                </Text>
-              </TouchableOpacity>
+              {/* Vertical Line */}
+              <View style={styles.verticalLine} />
+
+              <TabButton
+                title="journey"
+                handleTabButton={handleTabButton}
+                activeTab={activeTab}
+              />
             </View>
           </View>
 
           {/* tab container Footer (not footer but headr) */}
-          <TimelineHeader />
+          <TimelineHeader activeTimeFilter={activeTimeFilter} />
 
           {/* tab container footer */}
           {activeTab === "journey" && (
@@ -317,6 +261,7 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 20,
     lineHeight: 24.76,
+    letterSpacing: -0.03,
   },
   //
 
@@ -332,35 +277,30 @@ const styles = StyleSheet.create({
   },
 
   // tab container
-  tabContainerHeader: {
+  tabContainer: {
     paddingVertical: 16,
+    flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
   },
-  tabButtonContainer: {
+  tabWrapper: {
     backgroundColor: "rgba(0, 0, 0, 1)",
     flexDirection: "row",
-    gap: 16,
-    marginHorizontal: "auto",
+    gap: 8,
+    alignSelf: "center",
     borderRadius: 25,
     overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "#000",
+    width: "65%",
   },
-  tabButton: {
-    alignItems: "center",
-    paddingVertical: 9.5,
-    paddingHorizontal: 16,
-  },
-  tabText: {
-    color: "rgba(242, 243, 239, 1)",
-    fontFamily: "Gilroy-Bold",
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: 17.33,
-  },
-  activeTabButton: {
-    backgroundColor: "rgba(238, 238, 238, 1)",
-  },
-  activeTabText: {
-    color: "rgba(0, 0, 0, 1)",
+
+  // vertical line
+  verticalLine: {
+    width: 0.5,
+    backgroundColor: "rgba(238, 238, 238, 0.4)",
+    height: "auto",
+    marginVertical: 10,
   },
   //
 

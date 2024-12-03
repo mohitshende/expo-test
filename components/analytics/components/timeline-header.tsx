@@ -1,22 +1,35 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { ITimeFilter } from "@/constants/data";
 
-const TimelineHeader = () => {
+interface IActiveTimeFilterProps {
+  activeTimeFilter: string;
+}
+
+const timeFilters: ITimeFilter[] = [
+  { id: "1m", label: "1m" },
+  { id: "3m", label: "3m" },
+  { id: "6m", label: "6m" },
+];
+
+const TimelineHeader: React.FC<IActiveTimeFilterProps> = ({
+  activeTimeFilter,
+}) => {
   return (
     <View style={styles.tabContainerFooter}>
-      <View style={styles.tabFooterBlock}>
-        <Text
-          style={[styles.tabFooterBlockText, styles.activeTabFooterBlockText]}
-        >
-          1m ago
-        </Text>
-      </View>
-      <View style={styles.tabFooterBlock}>
-        <Text style={styles.tabFooterBlockText}>1m ago</Text>
-      </View>
-      <View style={styles.tabFooterBlock}>
-        <Text style={styles.tabFooterBlockText}>1m ago</Text>
-      </View>
+      {timeFilters.map((filter) => (
+        <View style={styles.tabFooterBlock}>
+          <Text
+            style={[
+              styles.tabFooterBlockText,
+              activeTimeFilter === filter.label &&
+                styles.activeTabFooterBlockText,
+            ]}
+          >
+            1m ago
+          </Text>
+        </View>
+      ))}
     </View>
   );
 };

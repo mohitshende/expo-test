@@ -80,3 +80,60 @@ export const data: HabitStackItem[] = [
     ],
   },
 ];
+
+// ----------------------- analytics screen START ----------------------------------------------------
+
+export type AnalyticsItem = {
+  id: number;
+  title: string;
+  value: string;
+  icon: any; // Icon component type
+};
+
+export const analytics: AnalyticsItem[] = [
+  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
+  { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
+  { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
+];
+
+export interface ITimeFilter {
+  id: string;
+  label: string;
+}
+export const timeFilters: ITimeFilter[] = [
+  { id: "1m", label: "1m" },
+  { id: "3m", label: "3m" },
+  { id: "6m", label: "6m" },
+  { id: "12m", label: "12m" },
+];
+
+export interface TimelineItem {
+  date: string;
+  title: string;
+  description: string;
+}
+
+export const timelineData: TimelineItem[] = [
+  {
+    date: "SEP 15",
+    title: "New habit formed: Meditation practice",
+    description: "You completed a 15-day streak",
+  },
+  {
+    date: "OCT 01",
+    title: "Consistent sleep-wake cycle established",
+    description: "You completed a 30-day morning routine streak",
+  },
+  {
+    date: "SEP 15",
+    title: "New habit formed: Meditation practice",
+    description: "You completed a 15-day streak",
+  },
+  {
+    date: "OCT 01",
+    title: "Consistent sleep-wake cycle established",
+    description: "You completed a 30-day morning routine streak",
+  },
+];
+
+// -------------------------- analytics screen END   ------------------------------------------------------
