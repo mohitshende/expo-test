@@ -4,8 +4,10 @@ import TimeLabelCard from "@/components/analytics/components/time-label-card";
 import TimelineHeader from "@/components/analytics/components/timeline-header";
 import TimelineItem from "@/components/analytics/components/timeline-item";
 import { icons } from "@/constants";
+import { chartData2 } from "@/constants/chart";
 import { Colors } from "@/constants/Colors";
 import { analytics, timeFilters, timelineData } from "@/constants/data";
+import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -16,7 +18,9 @@ import {
   ScrollView,
   Platform,
   StatusBar,
+  Dimensions,
 } from "react-native";
+import { LineChart } from "react-native-gifted-charts";
 
 const TOP_CONTAINER_HEIGHT = 355;
 
@@ -24,6 +28,9 @@ enum TAB_BUTTON {
   JOURNEY = "JOURNEY",
   OVERVIEW = "OVERVIEW",
 }
+
+const { width } = Dimensions.get("window");
+const chartWidth = width;
 
 const Analytics = () => {
   const [activeTab, setActiveTab] = useState(TAB_BUTTON.OVERVIEW);
@@ -47,10 +54,40 @@ const Analytics = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Top container */}
-      <View style={styles.topContainer}>
+      <LinearGradient
+        colors={["rgba(29, 173, 115, 1)", "rgba(5, 150, 105, 1)"]}
+        start={[0.25, 0]}
+        end={[0.67, 1]}
+        style={styles.topContainer}
+      >
         <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
           <icons.LeftArrow style={styles.backIcon} />
         </TouchableOpacity>
+
+         {/* Area Chart */}
+      <View style={styles.areaChartContainer}>
+        <LineChart
+          disableScroll
+          parentWidth={chartWidth}
+          startOpacity={0.1}
+          endOpacity={0.2}
+          color="rgba(217, 217, 217, 1)"
+          areaChart
+          curved
+          hideDataPoints
+          hideAxesAndRules
+          data={chartData2}
+          adjustToWidth
+          hideYAxisText
+          initialSpacing={0}
+          height={84.91}
+          thickness={1}
+          yAxisThickness={0}
+          yAxisLabelWidth={0}
+          xAxisThickness={0}
+          xAxisLabelsHeight={0}
+        />
+      </View>
 
         {/* Header text context*/}
         <View style={styles.scoreHeaderContainer}>
@@ -102,7 +139,7 @@ const Analytics = () => {
             </View>
           ))}
         </View>
-      </View>
+      </LinearGradient>
 
       <View style={styles.tabContainerWrapper}>
         <View style={styles.tabContainerInsideWrapper}>
@@ -164,7 +201,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     backgroundColor: "#1DAD73",
-    height: TOP_CONTAINER_HEIGHT,
+    // height: TOP_CONTAINER_HEIGHT,
   },
   //
   // Back Icon
@@ -180,6 +217,15 @@ const styles = StyleSheet.create({
     tintColor: Colors.black,
   },
   //
+    // Area charts
+    areaChartContainer: {
+      position: "absolute",
+      top: 135,
+      left: 0,
+      width: "100%",
+    },
+    //
+    //
 
   // header
   scoreHeaderContainer: {
@@ -236,9 +282,11 @@ const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: "row",
     justifyContent: "center",
+    marginTop:84.2,
     paddingHorizontal: 16,
-    marginTop: "auto",
-    marginBottom: 12,
+    paddingTop: 20.09,
+    paddingBottom: 12,
+    backgroundColor:"rgba(255, 255, 255, 0.17)"
   },
   //
 

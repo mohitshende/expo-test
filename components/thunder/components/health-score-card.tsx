@@ -14,7 +14,6 @@ type AnalyticsItem = {
   icon: any; // Icon component type
 };
 
-const { width } = Dimensions.get("window");
 
 const analytics: AnalyticsItem[] = [
   { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
@@ -22,6 +21,7 @@ const analytics: AnalyticsItem[] = [
   { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
 ];
 
+const { width } = Dimensions.get("window");
 const chartWidth = width - 34;
 
 const HealthScoreCard: React.FC = () => {
