@@ -38,18 +38,19 @@ const HealthCard = (props: HealthCardProps) => {
       {/* Score Bar */}
       <View style={styles.scoreContainer}>
         <View style={styles.scoreBar}>
-          <View
-            style={[
-              styles.scoreFill,
-              { width: `${((score - low) / (high - low)) * 100}%` },
-            ]}
-          />
+          <View style={[styles.scoreFill, { width: `${score}%` }]} />
         </View>
 
         {/* Top score label */}
-        <View style={styles.currentScore}>
-          <Text style={styles.scoreValue}>{score}</Text>
-          <Text style={styles.scoreLabel}>CURRENT</Text>
+        <View style={[styles.currentScore]}>
+          <View style={[styles.currentScoreC, { marginLeft: `${score}%` }]}>
+            <Text style={styles.scoreValue}>{score}</Text>
+            <Text style={styles.scoreLabel}>CURRENT</Text>
+          </View>
+
+          <View style={[styles.iconCont, { marginLeft: `${score}%` }]}>
+            <icons.Polygon />
+          </View>
         </View>
 
         {/* Score range */}
@@ -101,7 +102,7 @@ const HealthStats = () => {
     {
       id: 1,
       title: "Physical health",
-      score: 78,
+      score: 75,
       low: 57,
       high: 97,
       details: [
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     overflow: "hidden",
     marginBottom: 6,
-    marginTop: 32,
+    marginTop: 46,
   },
   scoreFill: {
     height: "100%",
@@ -210,9 +211,14 @@ const styles = StyleSheet.create({
   // Label
   currentScore: {
     position: "absolute",
-    top: 0,
-    left: "50%",
-    transform: [{ translateX: -50 }],
+    top: 6,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 16,
+    paddingRight: 15,
+  },
+  currentScoreC: {
     backgroundColor: "rgba(15, 159, 109, 1)",
     paddingHorizontal: 4,
     paddingVertical: 3,
@@ -220,6 +226,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
+    marginBottom: 4,
   },
   scoreValue: {
     color: "rgba(238, 238, 238, 1)",
@@ -235,6 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 12.38,
   },
+  iconCont: {},
   //
   // score range context
   scoreRange: {

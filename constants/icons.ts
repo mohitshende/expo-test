@@ -39,6 +39,7 @@ import SettingBlack from "../assets/icons/Setting_5.svg";
 import DownwardArrowBlack from "../assets/icons/Downward_Arrow_Black.svg";
 import UpwardArrowBlack from "../assets/icons/Upward_Arrow_black.svg";
 import ArrowTrendUpBlack from "../assets/icons/Arrow-trend-up-black.svg";
+import Polygon from "../assets/icons/Polygon.svg";
 
 export const icons = {
   QuickConsultationIcon,
@@ -81,5 +82,6 @@ export const icons = {
   //analyst
   DownwardArrowBlack,
   UpwardArrowBlack,
-  ArrowTrendUpBlack
+  ArrowTrendUpBlack,
+  Polygon
 };
