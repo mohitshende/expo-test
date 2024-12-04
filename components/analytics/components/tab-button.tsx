@@ -3,22 +3,21 @@ import React from "react";
 
 interface ITabButtonProps {
   title: string;
-  activeTab: string;
+  isActive: boolean;
   handleTabButton: (title: string) => void;
 }
+
 const TabButton: React.FC<ITabButtonProps> = ({
   title,
-  activeTab,
+  isActive,
   handleTabButton,
 }) => {
   return (
     <TouchableOpacity
-      style={[styles.tabButton, activeTab === title && styles.activeTab]}
+      style={[styles.tabButton, isActive && styles.activeTab]}
       onPress={() => handleTabButton(title)}
     >
-      <Text
-        style={[styles.tabText, activeTab === title && styles.activeTabText]}
-      >
+      <Text style={[styles.tabText, isActive && styles.activeTabText]}>
         {title}
       </Text>
     </TouchableOpacity>

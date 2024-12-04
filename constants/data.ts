@@ -108,6 +108,7 @@ export const timeFilters: ITimeFilter[] = [
 ];
 
 export interface TimelineItem {
+  id: string;
   date: string;
   title: string;
   description: string;
@@ -115,21 +116,25 @@ export interface TimelineItem {
 
 export const timelineData: TimelineItem[] = [
   {
+    id: "1",
     date: "SEP 15",
     title: "New habit formed: Meditation practice",
     description: "You completed a 15-day streak",
   },
   {
+    id: "2",
     date: "OCT 01",
     title: "Consistent sleep-wake cycle established",
     description: "You completed a 30-day morning routine streak",
   },
   {
+    id: "3",
     date: "SEP 15",
     title: "New habit formed: Meditation practice",
     description: "You completed a 15-day streak",
   },
   {
+    id: "4",
     date: "OCT 01",
     title: "Consistent sleep-wake cycle established",
     description: "You completed a 30-day morning routine streak",

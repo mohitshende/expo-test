@@ -1,3 +1,4 @@
+import HealthStats from "@/components/analytics/components/health-stats";
 import TabButton from "@/components/analytics/components/tab-button";
 import TimeLabelCard from "@/components/analytics/components/time-label-card";
 import TimelineHeader from "@/components/analytics/components/timeline-header";
@@ -19,8 +20,13 @@ import {
 
 const TOP_CONTAINER_HEIGHT = 355;
 
+enum TAB_BUTTON {
+  JOURNEY = "JOURNEY",
+  OVERVIEW = "OVERVIEW",
+}
+
 const Analytics = () => {
-  const [activeTab, setActiveTab] = useState("journey");
+  const [activeTab, setActiveTab] = useState(TAB_BUTTON.OVERVIEW);
   const [activeTimeFilter, setActiveTimeFilter] = useState("1m");
   const navigation = useNavigation();
 
@@ -33,7 +39,9 @@ const Analytics = () => {
   };
 
   const handleTabButton = (title: string) => {
-    setActiveTab(title);
+    setActiveTab(
+      title === "journey" ? TAB_BUTTON.JOURNEY : TAB_BUTTON.OVERVIEW
+    );
   };
 
   return (
@@ -66,6 +74,7 @@ const Analytics = () => {
         <View style={styles.timeFilterContainer}>
           {timeFilters.map((filter) => (
             <TimeLabelCard
+              key={filter.id}
               filter={filter}
               handleTimeLabelClick={handleTimeLabelClick}
               activeTimeLabel={activeTimeFilter}
@@ -103,7 +112,7 @@ const Analytics = () => {
               <TabButton
                 title="overview"
                 handleTabButton={handleTabButton}
-                activeTab={activeTab}
+                isActive={activeTab === TAB_BUTTON.OVERVIEW}
               />
 
               {/* Vertical Line */}
@@ -112,26 +121,32 @@ const Analytics = () => {
               <TabButton
                 title="journey"
                 handleTabButton={handleTabButton}
-                activeTab={activeTab}
+                isActive={activeTab === TAB_BUTTON.JOURNEY}
               />
             </View>
           </View>
 
-          {/* tab container Footer (not footer but headr) */}
-          <TimelineHeader activeTimeFilter={activeTimeFilter} />
+          {activeTab === TAB_BUTTON.JOURNEY && (
+            <>
+              <TimelineHeader activeTimeFilter={activeTimeFilter} />
 
-          {/* tab container footer */}
-          {activeTab === "journey" && (
-            <View style={styles.timelineContainer}>
-              {timelineData.map((item, index) => (
-                <TimelineItem
-                  key={index}
-                  date={item.date}
-                  title={item.title}
-                  description={item.description}
-                  isLastItem={index === timelineData.length - 1}
-                />
-              ))}
+              <View style={styles.timelineContainer}>
+                {timelineData.map((item, index) => (
+                  <TimelineItem
+                    key={item.id}
+                    date={item.date}
+                    title={item.title}
+                    description={item.description}
+                    isLastItem={index === timelineData.length - 1}
+                  />
+                ))}
+              </View>
+            </>
+          )}
+
+          {activeTab === TAB_BUTTON.OVERVIEW && (
+            <View>
+              <HealthStats />
             </View>
           )}
         </View>
