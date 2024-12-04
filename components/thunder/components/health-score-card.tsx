@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
 import React from "react";
 import CustomButton from "@/components/custom-button";
 import { Colors } from "@/constants/Colors";
 import { icons } from "@/constants";
+import { LineChart } from "react-native-gifted-charts";
+import { LinearGradient } from "expo-linear-gradient";
+import { chartData1 } from "@/constants/chart";
 
 type AnalyticsItem = {
   id: number;
@@ -11,15 +14,52 @@ type AnalyticsItem = {
   icon: any; // Icon component type
 };
 
+const { width } = Dimensions.get("window");
+
 const analytics: AnalyticsItem[] = [
   { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
   { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
   { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
 ];
 
+const chartWidth = width - 34;
+
 const HealthScoreCard: React.FC = () => {
   return (
-    <View style={styles.healthScoreCard}>
+    <LinearGradient
+      colors={["rgba(29, 173, 115, 1)", "rgba(5, 150, 105, 1)"]}
+      start={[0.25, 0]}
+      end={[0.67, 1]}
+      style={styles.healthScoreCard}
+    >
+      {/* Area Chart */}
+      <View style={styles.areaChartContainer}>
+        <LineChart
+          disableScroll
+          parentWidth={chartWidth}
+          startOpacity={0.1}
+          endOpacity={0.2}
+          color="rgba(217, 217, 217, 1)"
+          areaChart
+          curved
+          // hideDataPoints1
+          hideDataPoints
+          hideAxesAndRules
+          data={chartData1}
+          adjustToWidth
+          hideYAxisText
+          initialSpacing={0}
+          height={83}
+          thickness={1}
+          yAxisThickness={0}
+          yAxisLabelWidth={0}
+          xAxisThickness={0}
+          xAxisLabelsHeight={0}
+        />
+      </View>
+
+      {/* Wrapper */}
+
       {/* Content */}
       <View style={styles.healthScore}>
         {/* Score */}
@@ -64,7 +104,7 @@ const HealthScoreCard: React.FC = () => {
       <View style={styles.fullScreenIconContainer}>
         <icons.FullScreen />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -72,8 +112,9 @@ export default HealthScoreCard;
 
 const styles = StyleSheet.create({
   healthScoreCard: {
+    position: "relative",
     borderRadius: 12,
-    marginHorizontal: 20,
+    marginHorizontal: 16,
     paddingBottom: 12,
     backgroundColor: "rgba(5, 150, 105, 1)",
     marginBottom: 24,
@@ -97,7 +138,8 @@ const styles = StyleSheet.create({
     gap: 8,
     marginTop: 16,
     marginLeft: 24,
-    marginBottom: 49,
+    marginBottom: 51,
+    position: "relative",
   },
   titleNumber: {
     color: Colors.white,
@@ -136,7 +178,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
   },
-
+  //
+  // Area charts
+  areaChartContainer: {
+    position: "absolute",
+    top: 41,
+    left: 0,
+    width: "100%",
+  },
+  //
+  //
   // Analytics
   analyticsContainer: {
     flexDirection: "row",
