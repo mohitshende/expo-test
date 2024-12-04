@@ -100,7 +100,7 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar translucent backgroundColor="transparent" />
+      <StatusBar translucent backgroundColor="transparent"  barStyle="light-content"/>
       {/* Header Section */}
       <ProfileHeader />
 
