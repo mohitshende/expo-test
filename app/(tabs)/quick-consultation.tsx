@@ -10,8 +10,8 @@ import BotMessageCard from "@/components/bot-message-card";
 import UserMessageCard from "@/components/user-message.card";
 import { IChat } from "@/types/IChat";
 import CustomInput from "@/components/custom-input";
-import { icons } from "@/constants";
 import { formatTime } from "@/utils/formateTime";
+import HelpYouCard from "@/components/quick-consultation/components/help-you-card";
 
 type BotResponseKey = "anxious" | "sleep_issue" | "migraine";
 
@@ -86,10 +86,15 @@ const botResponses: Record<
 const QuickConsultation = () => {
   const [chat, setChat] = useState<IChat[]>([]);
   const [inputText, setInputText] = useState<string>("");
+  const [selectedIssue, setSelectedIssue] = useState<BotResponseKey | null>(
+    null
+  );
 
   // Handle Bot Option Click
   const handleOptionClick = ({ id, text }: { id: string; text: string }) => {
     const botResponseKey = id as BotResponseKey;
+
+    setSelectedIssue(botResponseKey);
 
     const userMessage = {
       id: `user-${Date.now()}`,
@@ -171,10 +176,15 @@ const QuickConsultation = () => {
           {chat.map((item) => (
             <View key={item.id}>
               {item.type === "bot" ? (
-                <BotMessageCard
-                  item={item}
-                  handleOptionClick={handleOptionClick}
-                />
+                <>
+                  <BotMessageCard
+                    item={item}
+                    handleOptionClick={handleOptionClick}
+                  />
+                  {selectedIssue && item.id !== "1" && (
+                    <HelpYouCard time={item.time} />
+                  )}
+                </>
               ) : (
                 <UserMessageCard item={item} />
               )}
@@ -221,4 +231,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: "#fff",
   },
+  //
+  //
 });
