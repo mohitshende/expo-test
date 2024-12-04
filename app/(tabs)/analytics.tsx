@@ -1,136 +1,153 @@
-// import JourneyTimeline from "@/components/UI/JourneyTimeline";
-// import { ScrollView } from "moti";
+import HealthStats from "@/components/analytics/components/health-stats";
+import TabButton from "@/components/analytics/components/tab-button";
+import TimeLabelCard from "@/components/analytics/components/time-label-card";
+import TimelineHeader from "@/components/analytics/components/timeline-header";
+import TimelineItem from "@/components/analytics/components/timeline-item";
+import { icons } from "@/constants";
+import { Colors } from "@/constants/Colors";
+import { analytics, timeFilters, timelineData } from "@/constants/data";
+import { useNavigation } from "expo-router";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-// import HealthStats from "@/components/UI/HealthStats";
-// import HealthScoreGraph from '@/components/UI/HealthGraph';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Platform,
+  StatusBar,
+} from "react-native";
 
-const TimelineItem = ({ date, title, description, isLastItem }) => {
-  return (
-    <View style={styles.timelineItem}>
-      <View style={styles.timelineLine}>
-        <View style={styles.timelineDot} />
-        {!isLastItem && <View style={styles.verticalLine} />}
-      </View>
-      <View style={styles.timelineContent}>
-        <Text style={styles.dateText}>{date}</Text>
-        <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.descriptionText}>{description}</Text>
-      </View>
-    </View>
-  );
-};
+const TOP_CONTAINER_HEIGHT = 355;
+
+enum TAB_BUTTON {
+  JOURNEY = "JOURNEY",
+  OVERVIEW = "OVERVIEW",
+}
 
 const Analytics = () => {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState(TAB_BUTTON.OVERVIEW);
   const [activeTimeFilter, setActiveTimeFilter] = useState("1m");
+  const navigation = useNavigation();
 
-  const timeFilters = [
-    { id: "1m", label: "1m ago" },
-    { id: "3m", label: "3m ago" },
-    { id: "6m", label: "6m ago" },
-  ];
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
 
-  const timelineData = [
-    {
-      date: "SEP 15",
-      title: "New habit formed: Meditation practice",
-      description: "you completed 15 day streak",
-    },
-    {
-      date: "OCT 01",
-      title: "Consistent sleep-wake cycle established",
-      description: "you completed 30 day morning routine streak",
-    },
-    {
-      date: "SEP 15",
-      title: "New habit formed: Meditation practice",
-      description: "you completed 15 day streak",
-    },
-    {
-      date: "OCT 01",
-      title: "Consistent sleep-wake cycle established",
-      description: "you completed 30 day morning routine streak",
-    },
-  ];
+  const handleTimeLabelClick = (id: string) => {
+    setActiveTimeFilter(id);
+  };
+
+  const handleTabButton = (title: string) => {
+    setActiveTab(
+      title === "journey" ? TAB_BUTTON.JOURNEY : TAB_BUTTON.OVERVIEW
+    );
+  };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.graphContainer}>{/* <HealthScoreGraph /> */}</View>
-        <View style={styles.belowContainer}>
-          <View style={styles.tabContainer}>
-            <TouchableOpacity
-              style={[
-                styles.tab,
-                activeTab === "overview" ? styles.activeTab : null,
-              ]}
-              onPress={() => setActiveTab("overview")}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  activeTab === "overview" ? styles.activeTabText : null,
-                ]}
-              >
-                overview
-              </Text>
-            </TouchableOpacity>
+    <ScrollView style={styles.container}>
+      {/* Top container */}
+      <View style={styles.topContainer}>
+        <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+          <icons.LeftArrow style={styles.backIcon} />
+        </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[
-                styles.tab,
-                activeTab === "journey" ? styles.activeTab : null,
-              ]}
-              onPress={() => setActiveTab("journey")}
-            >
-              <Text
-                style={[
-                  styles.tabText,
-                  activeTab === "journey" ? styles.activeTabText : null,
-                ]}
-              >
-                journey
-              </Text>
-            </TouchableOpacity>
+        {/* Header text context*/}
+        <View style={styles.scoreHeaderContainer}>
+          <View style={styles.healthScoreContainer}>
+            <Text style={styles.healthScoreValue}>78</Text>
+            <Text style={styles.healthScoreMax}>/100</Text>
           </View>
 
-          {activeTab === "overview" ? (
-            <>
-              <View style={styles.timeFiltersContainer}>
-                {timeFilters.map((filter) => (
-                  <TouchableOpacity
-                    key={filter.id}
-                    style={[styles.timeFilter]}
-                    onPress={() => setActiveTimeFilter(filter.id)}
-                  >
-                    <Text
-                      style={[
-                        styles.timeFilterText,
-                        activeTimeFilter === filter.id &&
-                          styles.activeTimeFilterText,
-                      ]}
-                    >
-                      {filter.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
+          <View>
+            <Text style={styles.healthScoreLabel}>My Health Score</Text>
+            <View style={styles.scoreImprovementContainer}>
+              <icons.ArrowTrendUpWhite />
+              <Text style={styles.scoreImprovementText}>
+                Improving steadily
+              </Text>
+            </View>
+          </View>
+        </View>
 
-              <ScrollView style={styles.timelineContainer}>
+        {/* Timeline labels */}
+        <View style={styles.timeFilterContainer}>
+          {timeFilters.map((filter) => (
+            <TimeLabelCard
+              key={filter.id}
+              filter={filter}
+              handleTimeLabelClick={handleTimeLabelClick}
+              activeTimeLabel={activeTimeFilter}
+            />
+          ))}
+        </View>
+
+        {/* Analytics */}
+        <View style={styles.analyticsContainer}>
+          {analytics.map((info, index) => (
+            <View
+              key={info.id}
+              style={[
+                styles.infoBlock,
+                analytics.length - 1 === index && { borderRightWidth: 0 },
+              ]}
+            >
+              <View style={styles.infoContentContainer}>
+                <Text style={styles.infoTitle}>{info.title}</Text>
+                <View style={styles.infoCardValueContainer}>
+                  <Text style={styles.infoValue}>{info.value}</Text>
+                  <info.icon />
+                </View>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      <View style={styles.tabContainerWrapper}>
+        <View style={styles.tabContainerInsideWrapper}>
+          {/* tab container header */}
+          <View style={styles.tabContainer}>
+            <View style={styles.tabWrapper}>
+              <TabButton
+                title="overview"
+                handleTabButton={handleTabButton}
+                isActive={activeTab === TAB_BUTTON.OVERVIEW}
+              />
+
+              {/* Vertical Line */}
+              <View style={styles.verticalLine} />
+
+              <TabButton
+                title="journey"
+                handleTabButton={handleTabButton}
+                isActive={activeTab === TAB_BUTTON.JOURNEY}
+              />
+            </View>
+          </View>
+
+          {activeTab === TAB_BUTTON.JOURNEY && (
+            <>
+              <TimelineHeader activeTimeFilter={activeTimeFilter} />
+
+              <View style={styles.timelineContainer}>
                 {timelineData.map((item, index) => (
                   <TimelineItem
-                    key={index}
+                    key={item.id}
                     date={item.date}
                     title={item.title}
                     description={item.description}
                     isLastItem={index === timelineData.length - 1}
                   />
                 ))}
-              </ScrollView>
+              </View>
             </>
-          ) : (
-            <HealthStats />
+          )}
+
+          {activeTab === TAB_BUTTON.OVERVIEW && (
+            <View>
+              <HealthStats />
+            </View>
           )}
         </View>
       </View>
@@ -143,122 +160,169 @@ export default Analytics;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#F5F5F5",
   },
-  graphContainer: {
-    // backgroundColor: '#000',
+  topContainer: {
+    backgroundColor: "#1DAD73",
+    height: TOP_CONTAINER_HEIGHT,
   },
-  belowContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "rgba(0, 0, 0, 0.5)",
-    borderWidth: 0.4,
-    borderRadius: 12,
-    margin: 16,
+  //
+  // Back Icon
+  backButton: {
+    marginTop:
+      Platform.OS === "android" ? (StatusBar.currentHeight || 44) + 17 : 17,
+    marginLeft: 15,
+    zIndex: 10,
   },
-  tabContainer: {
-    flexDirection: "row",
-    width: "80%",
-    backgroundColor: "#000",
-    borderRadius: 80,
-    marginTop: 16,
-    padding: 4,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tab: {
-    flex: 1,
-    paddingVertical: 9,
-    paddingHorizontal: 16,
-    height: 36,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 25,
-  },
-  activeTab: {
-    backgroundColor: "#fff",
-  },
-  tabText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#fff",
-  },
-  activeTabText: {
-    color: "#000",
-  },
-  timeFiltersContainer: {
-    marginVertical: 16,
-    flexDirection: "row",
-    borderWidth: 0.4,
-    borderLeftColor: "rgba(0, 0, 0, 0.03)",
-    borderRightColor: "rgba(0, 0, 0, 0.03)",
-    borderTopColor: "rgba(0, 0, 0, 0.7)",
-    borderBottomColor: "rgba(0, 0, 0, 0.7)",
-    backgroundColor: "rgba(0, 0, 0, 0.03)",
-  },
-  timeFilter: {
-    flex: 1,
-    paddingVertical: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRightWidth: 0.4,
-    borderRightColor: "rgba(0, 0, 0, 0.7)",
-  },
-  timeFilterText: {
-    fontSize: 14,
-    color: "#666",
-    fontWeight: "500",
-  },
-  activeTimeFilterText: {
-    color: "#000",
-    fontWeight: "600",
-  },
-  timelineContainer: {
-    width: "100%",
-    paddingHorizontal: 11,
-    paddingTop: 8,
-    paddingBottom: 32,
-  },
-  timelineItem: {
-    flexDirection: "row",
-  },
-  timelineLine: {
-    marginTop: 5,
+  backIcon: {
     width: 24,
+    height: 24,
+    tintColor: Colors.black,
+  },
+  //
+
+  // header
+  scoreHeaderContainer: {
+    marginLeft: 24,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 1,
+    zIndex: 99,
+  },
+  healthScoreContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+  },
+  healthScoreValue: {
+    color: "rgba(245, 245, 245, 1)",
+    fontFamily: "Gilroy-Bold",
+    fontWeight: 400,
+    fontSize: 48,
+    lineHeight: 59.42,
+  },
+  healthScoreMax: {
+    color: "rgba(245, 245, 245, 1)",
+    fontFamily: "Gilroy-Bold",
+    fontWeight: 400,
+    fontSize: 12,
+    lineHeight: 35.42,
+  },
+  //
+  healthScoreLabel: {
+    color: "rgba(255, 255, 255, 1)",
+    fontFamily: "Gilroy-Bold",
+    fontWeight: 400,
+    fontSize: 16,
+    lineHeight: 19.81,
+    letterSpacing: 0.03,
+  },
+  // Icon container
+  scoreImprovementContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  scoreImprovementText: {
+    color: "rgba(255, 255, 255, 0.7)",
+    fontFamily: "Gilroy-Medium",
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: 16,
+  },
+  //
+
+  // Time line COntainer
+  timeFilterContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    marginTop: "auto",
+    marginBottom: 12,
+  },
+  //
+
+  // Analytics
+  analyticsContainer: {
+    flexDirection: "row",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    paddingVertical: 3,
+  },
+  infoBlock: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRightWidth: 0.5,
+    borderColor: "rgba(255, 255, 255, 0.2)",
+    paddingVertical: 3,
+  },
+  infoContentContainer: {
+    alignItems: "flex-start",
+  },
+  infoTitle: {
+    color: "rgba(255, 255, 255, 0.6)",
+    fontFamily: "Gilroy-SemiBold",
+    fontWeight: 400,
+    fontSize: 11.12,
+    lineHeight: 13.62,
+  },
+  infoCardValueContainer: {
+    flexDirection: "row",
     alignItems: "center",
   },
-  timelineDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: "#666",
+  infoValue: {
+    color: Colors.white,
+    fontFamily: "Gilroy-Bold",
+    fontWeight: 400,
+    fontSize: 20,
+    lineHeight: 24.76,
+    letterSpacing: -0.03,
   },
+  //
+
+  // screen body
+  tabContainerWrapper: {
+    padding: 16,
+    paddingBottom: 132,
+  },
+  tabContainerInsideWrapper: {
+    borderWidth: 0.4,
+    borderColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 12,
+  },
+
+  // tab container
+  tabContainer: {
+    paddingVertical: 16,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tabWrapper: {
+    backgroundColor: "rgba(0, 0, 0, 1)",
+    flexDirection: "row",
+    gap: 8,
+    alignSelf: "center",
+    borderRadius: 25,
+    overflow: "hidden",
+    borderWidth: 2,
+    borderColor: "#000",
+    width: "65%",
+  },
+
+  // vertical line
   verticalLine: {
-    width: 1,
-    height: 80,
-    backgroundColor: "#E5E5E5",
+    width: 0.5,
+    backgroundColor: "rgba(238, 238, 238, 0.4)",
+    height: "auto",
+    marginVertical: 10,
   },
-  timelineContent: {
-    flex: 1,
-    marginLeft: 12,
-    paddingRight: 16,
-  },
-  dateText: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 4,
-    fontWeight: "500",
-  },
-  titleText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#000",
-    marginBottom: 4,
-  },
-  descriptionText: {
-    fontSize: 14,
-    color: "#666",
-    lineHeight: 20,
+  //
+
+  // footer
+
+  // body
+  timelineContainer: {
+    paddingVertical: 17,
   },
 });
