@@ -14,21 +14,20 @@ interface HealthCardProps {
   low: number;
   high: number;
   details: { id: string; label: string; value: number }[];
+  expanded: boolean;
+  onToggle: () => void;
 }
 
 const HealthCard = (props: HealthCardProps) => {
-  const [expanded, setExpanded] = useState(true);
-  const { score, low, high } = props;
-
-  const toggleExpanded = useCallback(() => setExpanded((prev) => !prev), []);
+  const { title, score, low, high, details, expanded, onToggle } = props;
 
   return (
     <View style={styles.card}>
       {/* Header */}
-      <TouchableOpacity onPress={toggleExpanded} style={styles.accordionHeader}>
+      <TouchableOpacity onPress={onToggle} style={styles.accordionHeader}>
         <View style={styles.accordionHeaderLeftContainer}>
           <Text style={styles.accordionHeaderTitle}>{props.title}</Text>
-          <icons.ArrowTrendUpWhite />
+          <icons.ArrowTrendUpBlack />
         </View>
         <View style={styles.accordionHeaderRightContainer}>
           <Text style={styles.accordionHeaderSubTitle}>breakdown</Text>
@@ -116,6 +115,12 @@ const HealthStats = () => {
     { id: 3, title: "Mental", score: 68, low: 60, high: 70, details: [] },
   ];
 
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
+
+  const toggleCard = (id: number) => {
+    setExpandedCard((prev) => (prev === id ? null : id));
+  };
+
   return (
     <View style={styles.container}>
       {data.map((item) => (
@@ -126,6 +131,8 @@ const HealthStats = () => {
           low={item.low}
           high={item.high}
           details={item.details}
+          expanded={expandedCard === item.id}
+          onToggle={() => toggleCard(item.id)}
         />
       ))}
     </View>
