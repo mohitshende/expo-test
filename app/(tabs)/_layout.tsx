@@ -114,7 +114,7 @@ export default function TabLayout() {
           ),
           header: () => (
             <>
-              <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+              <StatusBar translucent backgroundColor="transparent" />
               <CustomHeader />
             </>
           ),

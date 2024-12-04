@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import CustomButton from "@/components/custom-button";
 import { Colors } from "@/constants/Colors";
@@ -6,6 +13,7 @@ import { icons } from "@/constants";
 import { LineChart } from "react-native-gifted-charts";
 import { LinearGradient } from "expo-linear-gradient";
 import { chartData1 } from "@/constants/chart";
+import { router, useNavigation } from "expo-router";
 
 type AnalyticsItem = {
   id: string;
@@ -24,6 +32,11 @@ const { width } = Dimensions.get("window");
 const chartWidth = width - 34;
 
 const HealthScoreCard: React.FC = () => {
+  const navigation = useNavigation();
+
+  const handleFullScreenClick = () => {
+    router.push("/(tabs)/analytics");
+  };
   return (
     <LinearGradient
       colors={["rgba(29, 173, 115, 1)", "rgba(5, 150, 105, 1)"]}
@@ -100,7 +113,9 @@ const HealthScoreCard: React.FC = () => {
       />
 
       <View style={styles.fullScreenIconContainer}>
-        <icons.FullScreen />
+        <TouchableOpacity onPress={handleFullScreenClick}>
+          <icons.FullScreen />
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );

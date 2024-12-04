@@ -64,30 +64,30 @@ const Analytics = () => {
           <icons.LeftArrow style={styles.backIcon} />
         </TouchableOpacity>
 
-         {/* Area Chart */}
-      <View style={styles.areaChartContainer}>
-        <LineChart
-          disableScroll
-          parentWidth={chartWidth}
-          startOpacity={0.1}
-          endOpacity={0.2}
-          color="rgba(217, 217, 217, 1)"
-          areaChart
-          curved
-          hideDataPoints
-          hideAxesAndRules
-          data={chartData2}
-          adjustToWidth
-          hideYAxisText
-          initialSpacing={0}
-          height={84.91}
-          thickness={1}
-          yAxisThickness={0}
-          yAxisLabelWidth={0}
-          xAxisThickness={0}
-          xAxisLabelsHeight={0}
-        />
-      </View>
+        {/* Area Chart */}
+        <View style={styles.areaChartContainer}>
+          <LineChart
+            disableScroll
+            parentWidth={chartWidth}
+            startOpacity={0.1}
+            endOpacity={0.2}
+            color="rgba(217, 217, 217, 1)"
+            areaChart
+            curved
+            hideDataPoints
+            hideAxesAndRules
+            data={chartData2}
+            adjustToWidth
+            hideYAxisText
+            initialSpacing={0}
+            height={84.91}
+            thickness={1}
+            yAxisThickness={0}
+            yAxisLabelWidth={0}
+            xAxisThickness={0}
+            xAxisLabelsHeight={0}
+          />
+        </View>
 
         {/* Header text context*/}
         <View style={styles.scoreHeaderContainer}>
@@ -217,15 +217,15 @@ const styles = StyleSheet.create({
     tintColor: Colors.black,
   },
   //
-    // Area charts
-    areaChartContainer: {
-      position: "absolute",
-      top: 135,
-      left: 0,
-      width: "100%",
-    },
-    //
-    //
+  // Area charts
+  areaChartContainer: {
+    position: "absolute",
+    top: 135,
+    left: 0,
+    width: "100%",
+  },
+  //
+  //
 
   // header
   scoreHeaderContainer: {
@@ -282,11 +282,11 @@ const styles = StyleSheet.create({
   timeFilterContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop:84.2,
+    marginTop: 84.2,
     paddingHorizontal: 16,
     paddingTop: 20.09,
     paddingBottom: 12,
-    backgroundColor:"rgba(255, 255, 255, 0.17)"
+    backgroundColor: "rgba(255, 255, 255, 0.17)",
   },
   //
 
@@ -294,7 +294,8 @@ const styles = StyleSheet.create({
   analyticsContainer: {
     flexDirection: "row",
     backgroundColor: "rgba(0, 0, 0, 0.1)",
-    paddingVertical: 3,
+    paddingTop: 8,
+    paddingBottom: 7,
   },
   infoBlock: {
     flex: 1,
@@ -313,6 +314,7 @@ const styles = StyleSheet.create({
     fontWeight: 400,
     fontSize: 11.12,
     lineHeight: 13.62,
+    marginBottom: 2,
   },
   infoCardValueContainer: {
     flexDirection: "row",
