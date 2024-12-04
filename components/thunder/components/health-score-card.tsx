@@ -8,17 +8,16 @@ import { LinearGradient } from "expo-linear-gradient";
 import { chartData1 } from "@/constants/chart";
 
 type AnalyticsItem = {
-  id: number;
+  id: string;
   title: string;
   value: string;
   icon: any; // Icon component type
 };
 
-
 const analytics: AnalyticsItem[] = [
-  { id: 1, title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
-  { id: 2, title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
-  { id: 3, title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
+  { id: "1", title: "VITALS", value: "92%", icon: icons.ArrowTrendUpWhite },
+  { id: "2", title: "STRESS", value: "low", icon: icons.ArrowTrendDownWhite },
+  { id: "3", title: "ENERGY", value: "high", icon: icons.ArrowTrendUpWhite },
 ];
 
 const { width } = Dimensions.get("window");
@@ -42,7 +41,6 @@ const HealthScoreCard: React.FC = () => {
           color="rgba(217, 217, 217, 1)"
           areaChart
           curved
-          // hideDataPoints1
           hideDataPoints
           hideAxesAndRules
           data={chartData1}

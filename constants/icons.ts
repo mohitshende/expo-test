@@ -23,6 +23,7 @@ import Moon from "../assets/icons/moon.svg";
 import ArrowTrendUpBlue from "../assets/icons/Arrow-trend-up-blue.svg";
 import Drop from "../assets/icons/water-drop.svg";
 import SunMoonBgEffect from "../assets/icons/sun-moon-bg-effect.svg";
+import YogaGirl from "../assets/images/yoga_girl.svg";
 
 // Thunder
 import FullScreen from "../assets/icons/arrow_cross.svg";
@@ -65,6 +66,7 @@ export const icons = {
   ArrowTrendUpBlue,
   Drop,
   SunMoonBgEffect,
+  YogaGirl,
 
   // thunder
   FullScreen,

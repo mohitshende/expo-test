@@ -35,6 +35,7 @@ const HabitStacks = () => {
               }
               return (
                 <HabitStacksCard
+                  key={item.id}
                   newData={newData}
                   setNewData={setNewData}
                   maxVisibleItems={MAX}
@@ -44,7 +45,6 @@ const HabitStacks = () => {
                   animatedValue={animatedValue}
                   currentIndex={currentIndex}
                   setCurrentIndex={setCurrentIndex}
-                  key={index}
                 />
               );
             })}
