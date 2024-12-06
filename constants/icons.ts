@@ -41,6 +41,12 @@ import UpwardArrowBlack from "../assets/icons/Upward_Arrow_black.svg";
 import ArrowTrendUpBlack from "../assets/icons/Arrow-trend-up-black.svg";
 import Polygon from "../assets/icons/Polygon.svg";
 
+//tasks
+import SunWithBlur from "../assets/icons/sun_with_blur.svg";
+import DownwardArrowWhite from "../assets/icons/Downward_Arrow_White.svg";
+import GreyClock from "../assets/icons/grey-clock.svg";
+import BlackClock from "../assets/icons/black-clock.svg";
+
 export const icons = {
   QuickConsultationIcon,
   Send,
@@ -69,6 +75,12 @@ export const icons = {
   SunMoonBgEffect,
   YogaGirl,
 
+  // tasks
+  SunWithBlur,
+  DownwardArrowWhite,
+  GreyClock,
+  BlackClock,
+
   // thunder
   FullScreen,
   LightBulb,
@@ -83,5 +95,5 @@ export const icons = {
   DownwardArrowBlack,
   UpwardArrowBlack,
   ArrowTrendUpBlack,
-  Polygon
+  Polygon,
 };

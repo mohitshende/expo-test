@@ -23,7 +23,6 @@ type IconComponent = React.FC<{
   focused: boolean;
 }>;
 
-
 export default function TabLayout() {
   return (
     <Tabs
@@ -80,18 +79,22 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="quick-consultation"
+        name="tasks"
         options={{
-          headerLeft: () => (
-            <icons.QuickConsultationIcon style={styles.headerIcon} />
-          ),
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <ClipboardIcon color={color} focused={focused} />
+          ),
+          header: () => (
+            <>
+              <StatusBar translucent backgroundColor="transparent" />
+              <CustomHeader />
+            </>
           ),
         }}
       />
       <Tabs.Screen
-        name="thunder"
+        name="quick-consultation"
         options={{
           tabBarIcon: ({ color, focused }) => (
             <ThunderIcon color={color} focused={focused} />
